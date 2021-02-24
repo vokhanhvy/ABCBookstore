@@ -23,6 +23,8 @@ import javax.swing.table.*;
 public class Main extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     ArrayList<Employee> employeeList = new ArrayList<>();
+    ArrayList<Books> booksList = new ArrayList<>();
+    
     //int selectedIndex = -1;
     /**
      * Creates new form Main
@@ -41,6 +43,8 @@ public class Main extends javax.swing.JFrame {
     // Automatically display value to table
     public void showEmployee() {
         employeeList = EmployeeModify.findAll();
+        booksList = BookModify.findAllBooks();
+        
         tableModel.setRowCount(0);
         employeeList.forEach((e) -> {
             tableModel.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/e.getEmpId(), e.getEmpName(),
@@ -86,13 +90,13 @@ public class Main extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtBookId = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
+        btnAddBooks = new javax.swing.JPanel();
+        lblAddBooks = new javax.swing.JLabel();
         Card3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
@@ -400,9 +404,9 @@ public class Main extends javax.swing.JFrame {
         jLabel22.setForeground(new java.awt.Color(204, 204, 204));
         jLabel22.setText("Price");
 
-        jTextField1.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtBookId.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        txtBookId.setForeground(new java.awt.Color(204, 204, 204));
+        txtBookId.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
         jTextField2.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(204, 204, 204));
@@ -416,27 +420,32 @@ public class Main extends javax.swing.JFrame {
         jTextField4.setForeground(new java.awt.Color(204, 204, 204));
         jTextField4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
-        jPanel12.setBackground(new java.awt.Color(0, 181, 204));
+        btnAddBooks.setBackground(new java.awt.Color(0, 181, 204));
 
-        jLabel23.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel23.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add2.png"))); // NOI18N
-        jLabel23.setText("Add");
+        lblAddBooks.setBackground(new java.awt.Color(255, 255, 255));
+        lblAddBooks.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lblAddBooks.setForeground(new java.awt.Color(255, 255, 255));
+        lblAddBooks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add2.png"))); // NOI18N
+        lblAddBooks.setText("Add");
+        lblAddBooks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAddBooksMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+        javax.swing.GroupLayout btnAddBooksLayout = new javax.swing.GroupLayout(btnAddBooks);
+        btnAddBooks.setLayout(btnAddBooksLayout);
+        btnAddBooksLayout.setHorizontalGroup(
+            btnAddBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAddBooksLayout.createSequentialGroup()
                 .addGap(0, 10, Short.MAX_VALUE)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblAddBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
+        btnAddBooksLayout.setVerticalGroup(
+            btnAddBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAddBooksLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jLabel23)
+                .addComponent(lblAddBooks)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -451,7 +460,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddBooks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel10Layout.createSequentialGroup()
                             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel19)
@@ -464,7 +473,7 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                                 .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                .addComponent(jTextField1)
+                                .addComponent(txtBookId)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(494, Short.MAX_VALUE))
         );
@@ -480,7 +489,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtBookId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)
                         .addComponent(jLabel18))
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -497,7 +506,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel20)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(206, Short.MAX_VALUE))
         );
 
@@ -1470,6 +1479,26 @@ public class Main extends javax.swing.JFrame {
         btnSearch.setBackground(clr);
     }//GEN-LAST:event_lblResetMouseExited
 
+    private void lblAddBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddBooksMouseClicked
+        String bookid = txtBookId.getText();
+        if (bookid != null && bookid.length() > 0) {
+            
+            for(int i = 0; i < booksList.size(); i++) {
+                if(!booksList.get(i).getBookId().trim().equals(bookid)) {
+                    AddBooks addBooks = new AddBooks();
+                    
+            addBooks.show();
+            break;  
+            } else {
+                  JOptionPane.showMessageDialog(rootPane, "chua code chuc nang nay!!");
+                }
+            }
+            
+            
+            
+        } 
+    }//GEN-LAST:event_lblAddBooksMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1511,6 +1540,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel Card3;
     private javax.swing.JPanel Card4;
     private javax.swing.JPanel MyCardLayout;
+    private javax.swing.JPanel btnAddBooks;
     private javax.swing.JPanel btnAddEmp;
     private javax.swing.JPanel btnDelete;
     private javax.swing.JPanel btnEdit;
@@ -1531,7 +1561,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1542,7 +1571,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1555,10 +1583,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lblAddBooks;
     private javax.swing.JLabel lblAddEmp;
     private javax.swing.JLabel lblDelete;
     private javax.swing.JLabel lblEdit;
@@ -1569,6 +1597,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblValErr2;
     private javax.swing.JTable tblEmployee;
     private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtBookId;
     private javax.swing.JPasswordField txtConpass;
     private com.toedter.calendar.JDateChooser txtDob;
     private javax.swing.JTextField txtName;

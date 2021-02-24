@@ -537,7 +537,7 @@
                                           <Component id="jLabel17" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnAddBooks" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -551,7 +551,7 @@
                                                   <Component id="jTextField4" pref="236" max="32767" attributes="0"/>
                                                   <Component id="jTextField3" pref="236" max="32767" attributes="0"/>
                                                   <Component id="jTextField2" pref="236" max="32767" attributes="0"/>
-                                                  <Component id="jTextField1" max="32767" attributes="0"/>
+                                                  <Component id="txtBookId" max="32767" attributes="0"/>
                                                   <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -573,7 +573,7 @@
                                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtBookId" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
@@ -596,7 +596,7 @@
                                       <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="jPanel12" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="btnAddBooks" min="-2" pref="45" max="-2" attributes="0"/>
                                   <EmptySpace pref="206" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -711,7 +711,7 @@
                             <Property name="text" type="java.lang.String" value="Price"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField1">
+                        <Component class="javax.swing.JTextField" name="txtBookId">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Trebuchet MS" size="21" style="0"/>
@@ -781,7 +781,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Container class="javax.swing.JPanel" name="jPanel12">
+                        <Container class="javax.swing.JPanel" name="btnAddBooks">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="cc" green="b5" red="0" type="rgb"/>
@@ -793,7 +793,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
-                                      <Component id="jLabel23" min="-2" pref="97" max="-2" attributes="0"/>
+                                      <Component id="lblAddBooks" min="-2" pref="97" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -801,14 +801,14 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                      <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblAddBooks" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JLabel" name="jLabel23">
+                            <Component class="javax.swing.JLabel" name="lblAddBooks">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -824,6 +824,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Add"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddBooksMouseClicked"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
