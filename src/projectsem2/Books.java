@@ -13,15 +13,15 @@ import java.sql.Blob;
  * @author KHANH VY
  */
 public class Books {    
-        String bookId, bookName, author, genre, publisher;
+        String bookId, bookName, author, genre, publisher; 
         int quantity;
         long price;
-        Blob image;
+        byte[] image;
 
     public Books() {
     }
 
-    public Books(String bookId, String bookName, String author, String genre, String publisher, int quantity, long price, Blob image) {
+    public Books(String bookId, String bookName, String author, String genre, String publisher, int quantity, long price, byte[] image) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.author = author;
@@ -31,6 +31,22 @@ public class Books {
         this.price = price;
         this.image = image;
     }
+
+    public Books(String bookId, int quantity, long price) {
+        this.bookId = bookId;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    public Books(String bookId, String bookName, String author, String genre, String publisher, byte[] image) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.author = author;
+        this.genre = genre;
+        this.publisher = publisher;
+        this.image = image;
+    }
+    
 
     public String getBookId() {
         return bookId;
@@ -88,11 +104,11 @@ public class Books {
         this.price = price;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }

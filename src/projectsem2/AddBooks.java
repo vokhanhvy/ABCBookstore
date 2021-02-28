@@ -5,19 +5,46 @@
  */
 package projectsem2;
 
+import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+
 /**
  *
  * @author KHANH VY
  */
 public class AddBooks extends javax.swing.JFrame {
-
+    byte[] bookImage;
     /**
      * Creates new form AddBooks
      */
-    public AddBooks() {
+    public AddBooks(String txt1, String txt2, String txt3) {
         initComponents();
+        setLocationRelativeTo(null);
+        lbl1.setText(txt1);
+        lbl2.setText(txt2);
+        lbl3.setText(txt3);
+    }
+    
+    public AddBooks() {
+    
     }
 
+    // Hover effect
+    public void btnHover(JPanel panel) {
+        Color clr = new Color(0, 153, 204);
+        panel.setBackground(clr);
+    }
+    
+    public void btnHoverExt(JPanel panel){
+        Color clr = new Color(0, 181, 204);
+        panel.setBackground(clr);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +56,7 @@ public class AddBooks extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbl2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -37,16 +64,19 @@ public class AddBooks extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lbl1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
+        txtBookName = new javax.swing.JTextField();
+        txtAuthor = new javax.swing.JTextField();
+        txtPublisher = new javax.swing.JTextField();
+        btnAddtoStorage = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
+        txtGenre = new javax.swing.JComboBox<>();
+        lblErr = new javax.swing.JLabel();
+        lbl3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,97 +88,105 @@ public class AddBooks extends javax.swing.JFrame {
         jLabel1.setText("Please fill in the information for the new book");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, 50));
 
-        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setText("label2");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, -1, -1));
+        lbl2.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lbl2.setForeground(new java.awt.Color(204, 204, 204));
+        lbl2.setText("label2");
+        jPanel1.add(lbl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("Name");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("Author");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("Genre");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("Publisher");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
         jLabel8.setText("Price");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("Image");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
         jLabel10.setText("BookId:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel11.setText("label1");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, -1, -1));
+        lbl1.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lbl1.setForeground(new java.awt.Color(204, 204, 204));
+        lbl1.setText("label1");
+        jPanel1.add(lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(204, 204, 204));
         jLabel12.setText("Quantity:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, -1, -1));
 
-        jTextField2.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 310, -1));
+        txtBookName.setForeground(new java.awt.Color(204, 204, 204));
+        txtBookName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        jPanel1.add(txtBookName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 310, -1));
 
-        jTextField3.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 310, -1));
+        txtAuthor.setForeground(new java.awt.Color(204, 204, 204));
+        txtAuthor.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        jPanel1.add(txtAuthor, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 310, -1));
 
-        jTextField4.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 310, -1));
+        txtPublisher.setForeground(new java.awt.Color(204, 204, 204));
+        txtPublisher.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        jPanel1.add(txtPublisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 310, -1));
 
-        jTextField5.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, 310, -1));
-
-        jTextField6.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 310, -1));
-
-        jPanel3.setBackground(new java.awt.Color(0, 181, 204));
+        btnAddtoStorage.setBackground(new java.awt.Color(0, 181, 204));
+        btnAddtoStorage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddtoStorageMouseClicked(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Add to Storage");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel13MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel13MouseExited(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout btnAddtoStorageLayout = new javax.swing.GroupLayout(btnAddtoStorage);
+        btnAddtoStorage.setLayout(btnAddtoStorageLayout);
+        btnAddtoStorageLayout.setHorizontalGroup(
+            btnAddtoStorageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAddtoStorageLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnAddtoStorageLayout.setVerticalGroup(
+            btnAddtoStorageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 560, 170, 60));
+        jPanel1.add(btnAddtoStorage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 560, 170, 60));
 
         jButton1.setText("Choose Image");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +194,41 @@ public class AddBooks extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 480, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 480, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblImage.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 470, 140, 160));
+
+        txtGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novel", "Children", "Science", "General Knowledge", "Lifestyle" }));
+        txtGenre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(204, 204, 204)));
+        jPanel1.add(txtGenre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 310, -1));
+
+        lblErr.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblErr.setForeground(new java.awt.Color(255, 51, 51));
+        jPanel1.add(lblErr, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, 280, 20));
+
+        lbl3.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lbl3.setForeground(new java.awt.Color(204, 204, 204));
+        lbl3.setText("label1");
+        jPanel1.add(lbl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 310, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,8 +245,75 @@ public class AddBooks extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                } else {
+                    return f.getName().toLowerCase().endsWith(".jpg");
+                }
+            }
+            
+            @Override
+            public String getDescription() {
+                return "Image file (*.jpg)";
+            }
+        });
+        if (chooser.showOpenDialog(jPanel1) == JFileChooser.CANCEL_OPTION) {
+            return;
+        }
+        File file = chooser.getSelectedFile();
+        try {
+            ImageIcon icon = new ImageIcon(file.getPath());
+            System.out.println(file.getPath());
+            Image img = BookModify.resize(icon.getImage(), 140, 160);
+            ImageIcon resizedIcon = new ImageIcon(img);
+            lblImage.setIcon(resizedIcon);
+            bookImage = BookModify.toByteArray(img, "jpg");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseEntered
+        btnHover(btnAddtoStorage);
+    }//GEN-LAST:event_jLabel13MouseEntered
+
+    private void jLabel13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseExited
+        btnHoverExt(btnAddtoStorage);
+    }//GEN-LAST:event_jLabel13MouseExited
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        String bookid, quantity, name, author, genre, publisher, price;
+
+        quantity = lbl2.getText();
+        bookid = lbl1.getText();
+        name = txtBookName.getText();
+        author = txtAuthor.getText();
+        genre = txtGenre.getActionCommand();
+        publisher = txtPublisher.getText();
+        price = lbl3.getText();
+        
+        if (bookid == "" || quantity == "" || name == "" || author == "" || genre == "" || publisher == "" || price =="" || bookImage ==null) {
+            lblErr.setText("*Please fill in all fields!");
+        } else {
+                    Integer quantity1 = Integer.parseInt(quantity);
+                    long price1 = Long.parseLong(price.replace(",", ""));
+                    Books bk = new Books(bookid, name, author, genre, publisher, quantity1, price1, bookImage);
+                    BookModify.insertToBooks(bk);
+                    lblErr.setText("Add sucess!");
+                    this.dispose();
+                    
+                }    
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void btnAddtoStorageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddtoStorageMouseClicked
+
+    }//GEN-LAST:event_btnAddtoStorageMouseClicked
 
     /**
      * @param args the command line arguments
@@ -212,13 +351,12 @@ public class AddBooks extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnAddtoStorage;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -226,11 +364,15 @@ public class AddBooks extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbl1;
+    private javax.swing.JLabel lbl2;
+    private javax.swing.JLabel lbl3;
+    private javax.swing.JLabel lblErr;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JTextField txtAuthor;
+    private javax.swing.JTextField txtBookName;
+    private javax.swing.JComboBox<String> txtGenre;
+    private javax.swing.JTextField txtPublisher;
     // End of variables declaration//GEN-END:variables
 }

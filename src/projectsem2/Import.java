@@ -37,6 +37,12 @@ public class Import {
 
     public Import() {
     }
+
+    public Import(String bookid, Date date, long price) {
+        this.bookid = bookid;
+        this.date = date;
+        this.price = price;
+    }
     
     public int getNum() {
         return num;
