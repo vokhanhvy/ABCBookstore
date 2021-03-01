@@ -158,16 +158,7 @@ public class ReceiptForm extends javax.swing.JPanel {
         tblReceipt.setForeground(new java.awt.Color(153, 153, 153));
         tblReceipt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "BookName", "Quantity", "Discount", "Price", "Total"
@@ -290,14 +281,11 @@ public class ReceiptForm extends javax.swing.JPanel {
                                         .addGap(230, 230, 230))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(19, 19, 19))
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel1)
                                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(19, 19, 19)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtBookId, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -399,9 +387,19 @@ public class ReceiptForm extends javax.swing.JPanel {
                 discountNum = Integer.parseInt(discount);
             }
             projectsem2.Books bk = Pattern.ReceiptDetailModify.searchBookId(bookId);
-            tableModelReceipt.setRowCount(0);
-            tableModelReceipt.addRow(new Object[]{tableModelReceipt.getRowCount() + 1 ,bk.getBookName(), quantity,
+            //tableModelReceipt.setRowCount(0);
+            tableModelReceipt.addRow(new Object[]{/*tableModelReceipt.getRowCount() + 1,*/ bk.getBookName(), quantity,
                 discount, bk.getPrice(), quantityNum * bk.getPrice() * (100 - discountNum) / 100});
+
+            Pattern.ReceiptDetail rcp = new Pattern.ReceiptDetail();
+            rcp.setReceiptId(lblReceiptId.getText());
+            rcp.setBookId(bookId);
+            rcp.setQuantity(quantityNum);
+            rcp.setPrice(bk.getPrice());
+            rcp.setEmpId(0);  // NOT CODE YET!!!!!!!
+            rcp.setTotal(bk.getPrice() * (100 - discountNum) / 100);
+            Pattern.ReceiptDetailModify.insertToReceiptDetail(rcp);
+
         }
     }//GEN-LAST:event_lblAddReceiptMouseClicked
 

@@ -419,7 +419,7 @@ public class Main extends javax.swing.JFrame {
 
         MyCardLayout.setLayout(new java.awt.CardLayout());
 
-        Card1.setBackground(new java.awt.Color(255, 153, 153));
+        Card1.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlMainReceipt.setBackground(new java.awt.Color(255, 255, 255));
         pnlMainReceipt.setForeground(new java.awt.Color(0, 181, 204));

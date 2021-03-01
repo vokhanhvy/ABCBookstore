@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import projectsem2.Employee;
+
 
 /**
  *
@@ -63,5 +63,41 @@ public class ReceiptDetailModify {
         }
         //end here
         return null;
+    }
+    
+    public static void insertToReceiptDetail(Pattern.ReceiptDetail rcp) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            //query
+            String sql = "insert into TestReceipt(ReceiptId, BookId , Quantity , Price , EmpId, Total) values(?, ?, ?, ?, ?, ?)";
+            statement = connection.prepareCall(sql);
+            statement.setString(1, rcp.getReceiptId());
+            statement.setString(2, rcp.getBookId());
+            statement.setInt(3, rcp.getQuantity());
+            statement.setLong(4, rcp.getPrice());
+            statement.setInt(5, rcp.getEmpId());
+            statement.setLong(6, rcp.getTotal());
+            statement.execute();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
 }
