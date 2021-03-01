@@ -5,6 +5,7 @@
  */
 package projectsem2;
 
+import Form.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -26,6 +27,8 @@ import javax.swing.table.*;
  * @author KHANH VY
  */
 public class Main extends javax.swing.JFrame {
+    private ReceiptForm receiptPanel;
+    private ReceiptTrackingForm receiptTrackingPanel;
     DefaultTableModel tableModelEmp, tableModelBook, tableModelImport;
     ArrayList<Employee> employeeList = new ArrayList<>();
     ArrayList<Books> booksList = new ArrayList<>();
@@ -39,12 +42,14 @@ public class Main extends javax.swing.JFrame {
     CardLayout cardlayout;
     public Main() {
         initComponents();
+        showReceiptPanel();
         tableModelEmp = (DefaultTableModel) tblEmployee.getModel();
         tableModelBook = (DefaultTableModel) tblBook.getModel();
         tableModelImport = (DefaultTableModel) tblStorageTracking.getModel();
         showEmployee();
         showBook();
         showStorageTracking();
+        showReceiptTrackingPanel();
         cardlayout = (CardLayout) (MyCardLayout.getLayout());
         lblEdit2.setVisible(false);
         lblReset.setVisible(false);
@@ -52,6 +57,19 @@ public class Main extends javax.swing.JFrame {
         lblResetBook.setVisible(false);
         lblStrgTrackReset.setVisible(false);
        
+    }
+    // Call Receipt Panel
+    public void showReceiptPanel() {
+        receiptPanel = new ReceiptForm();
+        pnlMainReceipt.addTab("Receipt", receiptPanel);
+        pnlMainReceipt.setSelectedComponent(receiptPanel);
+    }
+    
+    // Call Receipt Tracking Panel
+    public void showReceiptTrackingPanel() {
+        receiptTrackingPanel = new ReceiptTrackingForm();
+        pnlMainReceipt.addTab("Tracking", receiptTrackingPanel);
+        pnlMainReceipt.setSelectedComponent(receiptTrackingPanel);
     }
     
     // Automatically display value to table
@@ -117,6 +135,7 @@ public class Main extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         MyCardLayout = new javax.swing.JPanel();
         Card1 = new javax.swing.JPanel();
+        pnlMainReceipt = new javax.swing.JTabbedPane();
         Card2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel9 = new javax.swing.JPanel();
@@ -402,15 +421,25 @@ public class Main extends javax.swing.JFrame {
 
         Card1.setBackground(new java.awt.Color(255, 153, 153));
 
+        pnlMainReceipt.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMainReceipt.setForeground(new java.awt.Color(0, 181, 204));
+        pnlMainReceipt.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+
         javax.swing.GroupLayout Card1Layout = new javax.swing.GroupLayout(Card1);
         Card1.setLayout(Card1Layout);
         Card1Layout.setHorizontalGroup(
             Card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 979, Short.MAX_VALUE)
+            .addGroup(Card1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlMainReceipt, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
+                .addContainerGap())
         );
         Card1Layout.setVerticalGroup(
             Card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGroup(Card1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlMainReceipt, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         MyCardLayout.add(Card1, "Card1");
@@ -2537,6 +2566,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblStrgTrackSearch;
     private javax.swing.JLabel lblValErr;
     private javax.swing.JLabel lblValErr2;
+    private javax.swing.JTabbedPane pnlMainReceipt;
     private javax.swing.JTable tblBook;
     private javax.swing.JTable tblEmployee;
     private javax.swing.JTable tblStorageTracking;
