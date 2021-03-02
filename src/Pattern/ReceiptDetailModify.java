@@ -20,6 +20,7 @@ import java.util.ArrayList;
  */
 // when input bookid, search bookid on table Books to get all information -> return Book Object
 public class ReceiptDetailModify {
+    
     public static projectsem2.Books searchBookId(String txt) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -100,4 +101,38 @@ public class ReceiptDetailModify {
             }
         }
     }
+    
+    public static void deleteReceipDetailRow(String receipId, String bookId){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            //querry
+            
+            String sql = "delete from TestReceipt where ReceiptId=? and BookId=?";
+            
+            statement = connection.prepareCall(sql);
+            statement.setString(1, receipId);
+            statement.setString(2, bookId);
+            statement.execute();
+ 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if(statement !=null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }   
+    }  
 }

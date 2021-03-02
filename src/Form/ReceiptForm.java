@@ -5,7 +5,9 @@
  */
 package Form;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -53,7 +55,7 @@ public class ReceiptForm extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         lblAddReceipt = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        lblDeleteReceiptRow = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReceipt = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -136,22 +138,27 @@ public class ReceiptForm extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(0, 181, 204));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.png"))); // NOI18N
-        jLabel9.setText("Delete");
+        lblDeleteReceiptRow.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lblDeleteReceiptRow.setForeground(new java.awt.Color(255, 255, 255));
+        lblDeleteReceiptRow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.png"))); // NOI18N
+        lblDeleteReceiptRow.setText("Delete");
+        lblDeleteReceiptRow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDeleteReceiptRowMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+            .addComponent(lblDeleteReceiptRow, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 3, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblDeleteReceiptRow, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         tblReceipt.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -403,6 +410,11 @@ public class ReceiptForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lblAddReceiptMouseClicked
 
+    private void lblDeleteReceiptRowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteReceiptRowMouseClicked
+        int selectedIndex = tblReceipt.getSelectedRow();
+        
+    }//GEN-LAST:event_lblDeleteReceiptRowMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -413,7 +425,6 @@ public class ReceiptForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -423,6 +434,7 @@ public class ReceiptForm extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblAddReceipt;
+    private javax.swing.JLabel lblDeleteReceiptRow;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblPrint;
     private javax.swing.JLabel lblReceiptId;
