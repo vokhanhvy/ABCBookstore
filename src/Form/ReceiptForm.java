@@ -5,8 +5,18 @@
  */
 package Form;
 
+import Pattern.ExportModify;
+import Pattern.Validation;
+import Pattern.ReceiptDetail;
+import Pattern.ReceiptDetailModify;
+import Pattern.Export;
+import Pattern.ExportModify;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -15,15 +25,28 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ReceiptForm extends javax.swing.JPanel {
     DefaultTableModel tableModelReceipt;
-    /**
-     * Creates new form ReceiptForm
-     */
+    ArrayList<ReceiptDetail> receiptList = new ArrayList<>();
+    Date today = new java.util.Date();
+    
+  
     
     public static class SequentialNumber {
-
-        private static int currentNumber = 1000;
-
-        public static String GetNextNumber() {
+        public static int init() {
+            int currentNumber;
+            Export export = new Export();
+            export = ExportModify.selectTop1Export();
+            if (export == null) {
+                currentNumber = 1000;
+            } else {
+                String id = export.getReceiptId().replace("R", "");
+                currentNumber = Integer.parseInt(id.trim());
+            }
+            return currentNumber;
+        }
+       
+    //private static int currentNumber = 1000;    
+   
+        public static String GetNextNumber(int currentNumber) {
             currentNumber++;
             return "R" + currentNumber;
 
@@ -33,8 +56,19 @@ public class ReceiptForm extends javax.swing.JPanel {
     public ReceiptForm() {
         initComponents();
         tableModelReceipt = (DefaultTableModel) tblReceipt.getModel();
-        String stt = SequentialNumber.GetNextNumber();
+        int currentId = SequentialNumber.init();
+        String stt = SequentialNumber.GetNextNumber(currentId);
         lblReceiptId.setText(stt);
+        
+    }
+    
+    public void showReceiptDetail(String receipid) {
+        receiptList = ReceiptDetailModify.findAllReceipt(receipid);
+        tableModelReceipt.setRowCount(0);
+        receiptList.forEach((r) -> {
+            tableModelReceipt.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/r.getBookName(), r.getQuantity(),
+                r.getDiscount(), r.getPrice(), r.getTotal()});
+        });
     }
 
     /**
@@ -60,7 +94,7 @@ public class ReceiptForm extends javax.swing.JPanel {
         tblReceipt = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtDiscount = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -71,6 +105,7 @@ public class ReceiptForm extends javax.swing.JPanel {
         lblPrint = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lblReceiptId = new javax.swing.JLabel();
+        lblError1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(0, 181, 204));
@@ -105,6 +140,14 @@ public class ReceiptForm extends javax.swing.JPanel {
         txtQuantity.setFont(new java.awt.Font("Trebuchet MS", 0, 20)); // NOI18N
         txtQuantity.setForeground(new java.awt.Color(204, 204, 204));
         txtQuantity.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyReleased(evt);
+            }
+        });
 
         lblError.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 0, 0));
@@ -198,9 +241,9 @@ public class ReceiptForm extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("(Including VAT)");
 
-        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel6.setText("Total Amount");
+        lblTotal.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        lblTotal.setForeground(new java.awt.Color(102, 102, 102));
+        lblTotal.setText("0");
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 20)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
@@ -265,6 +308,9 @@ public class ReceiptForm extends javax.swing.JPanel {
         lblReceiptId.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
         lblReceiptId.setForeground(new java.awt.Color(102, 102, 102));
 
+        lblError1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblError1.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -276,32 +322,35 @@ public class ReceiptForm extends javax.swing.JPanel {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(116, 116, 116))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(43, 43, 43)
+                                .addComponent(lblReceiptId, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addGap(43, 43, 43)
-                                        .addComponent(lblReceiptId, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(230, 230, 230))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtBookId, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(19, 19, 19)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtBookId, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(20, 20, 20)
-                                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblError1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,8 +364,8 @@ public class ReceiptForm extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jScrollPane2))
                                 .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -326,20 +375,22 @@ public class ReceiptForm extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(lblReceiptId, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtBookId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblError1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -359,7 +410,7 @@ public class ReceiptForm extends javax.swing.JPanel {
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel6))
+                    .addComponent(lblTotal))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -371,21 +422,31 @@ public class ReceiptForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
-        String stt = SequentialNumber.GetNextNumber();
+        int currentId = SequentialNumber.init();
+        String stt = SequentialNumber.GetNextNumber(currentId);
         lblReceiptId.setText(stt);
         projectsem2.Books bk = Pattern.ReceiptDetailModify.searchBookId("aaa");
         System.out.println(bk.getPrice());
     }//GEN-LAST:event_lblPrintMouseClicked
 
+    //Add Receipt Detail
     private void lblAddReceiptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddReceiptMouseClicked
+        
+        // Create new ReceiptId in table Export
+        Export exp = ExportModify.searchExportReceiptId(lblReceiptId.getText());
+        if (exp ==null) {
+            ExportModify.insertToExport(lblReceiptId.getText());
+        }
+        
         String bookId, quantity, price, discount;
         bookId = txtBookId.getText();
         quantity = txtQuantity.getText();
         discount = txtDiscount.getText();
         lblError.setText("");
+        
         if (bookId.equals("") || quantity.equals("")) {
             lblError.setText("*Please fill in BookId and Quantity");
-        } else {
+        } else if (lblError1.getText().equals("")) {
             int discountNum;
             int quantityNum = Integer.parseInt(quantity);
             if (discount.equals("")) {
@@ -394,27 +455,110 @@ public class ReceiptForm extends javax.swing.JPanel {
                 discountNum = Integer.parseInt(discount);
             }
             projectsem2.Books bk = Pattern.ReceiptDetailModify.searchBookId(bookId);
-            //tableModelReceipt.setRowCount(0);
-            tableModelReceipt.addRow(new Object[]{/*tableModelReceipt.getRowCount() + 1,*/ bk.getBookName(), quantity,
-                discount, bk.getPrice(), quantityNum * bk.getPrice() * (100 - discountNum) / 100});
+            if (bk == null) {
+                Validation.Notify(this, "No BookId found!", "Error");
+            } else {
+                Pattern.ReceiptDetail rcp1 = Pattern.ReceiptDetailModify.searchReceipIdBookId(lblReceiptId.getText(), bookId);
+                if (rcp1 == null) {
 
-            Pattern.ReceiptDetail rcp = new Pattern.ReceiptDetail();
-            rcp.setReceiptId(lblReceiptId.getText());
-            rcp.setBookId(bookId);
-            rcp.setQuantity(quantityNum);
-            rcp.setPrice(bk.getPrice());
-            rcp.setEmpId(0);  // NOT CODE YET!!!!!!!
-            rcp.setTotal(bk.getPrice() * (100 - discountNum) / 100);
-            Pattern.ReceiptDetailModify.insertToReceiptDetail(rcp);
+                    tableModelReceipt.addRow(new Object[]{/*tableModelReceipt.getRowCount() + 1,*/bk.getBookName(), quantity,
+                        discount, bk.getPrice(), quantityNum * bk.getPrice() * (100 - discountNum) / 100});
 
+                    Pattern.ReceiptDetail rcp = new Pattern.ReceiptDetail();
+                    rcp.setReceiptId(lblReceiptId.getText());
+                    rcp.setBookName(bk.getBookName());
+                    rcp.setBookId(bookId);
+                    rcp.setQuantity(quantityNum);
+                    rcp.setPrice(bk.getPrice());
+                    rcp.setDiscount(discountNum);
+                    rcp.setEmpId(0);  // NOT CODE YET!!!!!!!
+                    rcp.setTotal(quantityNum * bk.getPrice() * (100 - discountNum) / 100);
+                    
+                    Long currentTotal = Long.parseLong(lblTotal.getText());
+                    Long newTotal = rcp.getTotal() + currentTotal;
+                    String newTotal1 = Long.toString(newTotal);
+                    lblTotal.setText(newTotal1);
+                    
+                    ReceiptDetailModify.insertToReceiptDetail(rcp);
+                    
+                    //UPDATE EXPORT TABLE
+                    exp.setReceiptId(lblReceiptId.getText());
+                    exp.setDate(today);
+                    exp.setTotal(newTotal);
+                    exp.setEmpId(0); // NOT CODE YET!!!!!
+                    ExportModify.updateExport(exp);
+                    
+                } else {
+                    
+                    int newQuantity = rcp1.getQuantity();
+                    rcp1.setQuantity(quantityNum + newQuantity);
+                    
+                    long updateTotal = rcp1.getTotal();
+                    rcp1.setTotal(updateTotal + quantityNum * bk.getPrice() * (100 - discountNum) / 100);
+                    
+                    Long currentTotal = Long.parseLong(lblTotal.getText());
+                    Long newTotal = quantityNum * rcp1.getPrice() * (100 - discountNum) / 100 + currentTotal;
+                    String newTotal1 = Long.toString(newTotal);
+                    lblTotal.setText(newTotal1);
+                    
+                    ReceiptDetailModify.updateReceiptDetail(rcp1);
+                    showReceiptDetail(lblReceiptId.getText());
+                    
+                    //UPDATE EXPORT TABLE
+                    exp.setReceiptId(lblReceiptId.getText());
+                    exp.setDate(today);
+                    exp.setTotal(newTotal);
+                    exp.setEmpId(0); // NOT CODE YET!!!!!
+                    ExportModify.updateExport(exp);
+                }
+            }
         }
     }//GEN-LAST:event_lblAddReceiptMouseClicked
-
+    
+    
     private void lblDeleteReceiptRowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteReceiptRowMouseClicked
         int selectedIndex = tblReceipt.getSelectedRow();
+        String bookId = tblReceipt.getModel().getValueAt(selectedIndex, 0).toString();
+        String total = tblReceipt.getModel().getValueAt(selectedIndex, 4).toString();
         
+        Long currentTotal = Long.parseLong(lblTotal.getText());
+        Long newTotal = currentTotal - Long.parseLong(total);
+        String newTotal1 = Long.toString(newTotal);
+        
+        int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this?");
+        
+        if (option == 0) {
+            ReceiptDetailModify.deleteReceipDetailRow(lblReceiptId.getText(), bookId);
+            showReceiptDetail(lblReceiptId.getText());
+            lblTotal.setText(newTotal1);
+
+            //UPDATE EXPORT TABLE
+            Export exp = new Export();
+            exp.setReceiptId(lblReceiptId.getText());
+            exp.setDate(today);
+            exp.setTotal(newTotal);
+            exp.setEmpId(0); // NOT CODE YET!!!!!
+            ExportModify.updateExport(exp);
+        }
     }//GEN-LAST:event_lblDeleteReceiptRowMouseClicked
 
+    private void txtQuantityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyReleased
+        Pattern.Validation.checkDigit(txtQuantity, lblError1);
+    }//GEN-LAST:event_txtQuantityKeyReleased
+
+    private void txtQuantityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantityKeyPressed
+    
+    // Sua Quantity trong table book
+    // PROCEED TO CHECKOUT
+    //add du lieu cua hoa don vao bang export
+    // xoa bang
+    // hien thi Trang in hoa don
+    //PRINT
+    //Xoa trang in hoa don
+    //Reset lai ma hoa don
+    // 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -423,7 +567,6 @@ public class ReceiptForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -436,8 +579,10 @@ public class ReceiptForm extends javax.swing.JPanel {
     private javax.swing.JLabel lblAddReceipt;
     private javax.swing.JLabel lblDeleteReceiptRow;
     private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblError1;
     private javax.swing.JLabel lblPrint;
     private javax.swing.JLabel lblReceiptId;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblReceipt;
     private javax.swing.JTextField txtBookId;
     private javax.swing.JTextField txtDiscount;

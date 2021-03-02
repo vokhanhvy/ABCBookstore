@@ -10,20 +10,27 @@ package Pattern;
  * @author KHANH VY
  */
 public class ReceiptDetail {
-    String receiptId, bookId;
-    int quantity, empId;
+    String receiptId, bookId, bookName;
+    int quantity, empId, discount;
     long price, total;
 
-    public ReceiptDetail(String receiptId, String bookId, int quantity, int empId, long price, long total) {
+    public ReceiptDetail(String receiptId, String bookId, String bookName,int quantity, int empId, long price, int discount, long total) {
         this.receiptId = receiptId;
         this.bookId = bookId;
+        this.bookName = bookName;
         this.quantity = quantity;
         this.empId = empId;
         this.price = price;
+        this.discount = discount;
         this.total = total;
     }
 
     public ReceiptDetail() {
+    }
+
+    public ReceiptDetail(String receiptId, String bookId) {
+        this.receiptId = receiptId;
+        this.bookId = bookId;
     }
 
     public String getReceiptId() {
@@ -72,6 +79,22 @@ public class ReceiptDetail {
 
     public void setTotal(long total) {
         this.total = total;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
     
 }
