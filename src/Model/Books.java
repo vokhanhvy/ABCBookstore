@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectsem2;
+package Model;
 
 import java.awt.Image;
 import java.sql.Blob;

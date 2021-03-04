@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectsem2;
+package Form;
 
+import Model.Books;
+import Model.BookModify;
+import Model.BookModify;
+import Model.Books;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
@@ -18,12 +22,12 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author KHANH VY
  */
-public class AddBooks extends javax.swing.JFrame {
+public class BookAdding extends javax.swing.JFrame {
     byte[] bookImage;
     /**
      * Creates new form AddBooks
      */
-    public AddBooks(String txt1, String txt2, String txt3) {
+    public BookAdding(String txt1, String txt2, String txt3) {
         initComponents();
         setLocationRelativeTo(null);
         lbl1.setText(txt1);
@@ -31,7 +35,7 @@ public class AddBooks extends javax.swing.JFrame {
         lbl3.setText(txt3);
     }
     
-    public AddBooks() {
+    public BookAdding() {
     
     }
 
@@ -332,20 +336,21 @@ public class AddBooks extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookAdding.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookAdding.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookAdding.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookAdding.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddBooks().setVisible(true);
+                new BookAdding().setVisible(true);
             }
         });
     }

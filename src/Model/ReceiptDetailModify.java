@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Pattern;
+package Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 // when input bookid, search bookid on table Books to get all information -> return Book Object
 public class ReceiptDetailModify {
     
-    public static projectsem2.Books searchBookId(String txt) {
+    public static Model.Books searchBookId(String txt) {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -32,7 +32,7 @@ public class ReceiptDetailModify {
             statement.setString(1, txt);           
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                projectsem2.Books bk = new projectsem2.Books(resultSet.getString("BookId"),
+                Model.Books bk = new Model.Books(resultSet.getString("BookId"),
                         resultSet.getString("BookName"),
                         resultSet.getString("Author"),
                         resultSet.getString("Genre"),
@@ -68,13 +68,13 @@ public class ReceiptDetailModify {
     }
     
     
-    public static void insertToReceiptDetail(Pattern.ReceiptDetail rcp) {
+    public static void insertToReceiptDetail(Model.ReceiptDetail rcp) {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = SqlConnection.connectDB();
             //query
-            String sql = "insert into TestReceipt(ReceiptId, BookId , BookName, Quantity , Price , EmpId, Total, Discount) values(?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into TestReceipt(ReceiptId, BookId , BookName, Quantity , Price , EmpId, Total) values(?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
             statement.setString(1, rcp.getReceiptId());
             statement.setString(2, rcp.getBookId());
@@ -83,7 +83,6 @@ public class ReceiptDetailModify {
             statement.setLong(5, rcp.getPrice());
             statement.setInt(6, rcp.getEmpId());
             statement.setLong(7, rcp.getTotal());
-            statement.setInt(8, rcp.getDiscount());
             statement.execute();
 
         } catch (SQLException ex) {
@@ -106,7 +105,7 @@ public class ReceiptDetailModify {
         }
     }
     
-    public static void updateReceiptDetail(Pattern.ReceiptDetail rcp) {
+    public static void updateReceiptDetail(Model.ReceiptDetail rcp) {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -197,7 +196,6 @@ public class ReceiptDetailModify {
                         resultSet.getInt("Quantity"),
                         resultSet.getInt("EmpId"),
                         resultSet.getLong("Price"),
-                        resultSet.getInt("Discount"),
                         resultSet.getLong("Total")
                 );
                 return rcp;
@@ -245,7 +243,6 @@ public class ReceiptDetailModify {
                         resultSet.getInt("Quantity"),
                         resultSet.getInt("EmpId"),
                         resultSet.getLong("Price"),
-                        resultSet.getInt("Discount"),
                         resultSet.getLong("Total")
                 );
 

@@ -5,7 +5,11 @@
  */
 package projectsem2;
 
+
+import Model.Import;
+import Form.BookAdding;
 import Form.*;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -27,85 +31,82 @@ import javax.swing.table.*;
  * @author KHANH VY
  */
 public class Main extends javax.swing.JFrame {
+    
+    private EmployeeForm employeePanel;
+    private BookStorageForm bookStoragePanel;
+    private ImportBookForm importBookPanel;
+    private StorageTrackingForm storageTrackingPanel;
     private ReceiptForm receiptPanel;
     private ReceiptTrackingForm receiptTrackingPanel;
-    DefaultTableModel tableModelEmp, tableModelBook, tableModelImport;
-    ArrayList<Employee> employeeList = new ArrayList<>();
-    ArrayList<Books> booksList = new ArrayList<>();
-    ArrayList<Import> importList = new ArrayList<>();
-    byte[] bookImage;
+    
+    
+    
+    
+    
+    
     
     //int selectedIndex = -1;
     /**
      * Creates new form Main
      */
     CardLayout cardlayout;
+
     public Main() {
         initComponents();
-        showReceiptPanel();
-        tableModelEmp = (DefaultTableModel) tblEmployee.getModel();
-        tableModelBook = (DefaultTableModel) tblBook.getModel();
-        tableModelImport = (DefaultTableModel) tblStorageTracking.getModel();
-        showEmployee();
-        showBook();
-        showStorageTracking();
-        showReceiptTrackingPanel();
         cardlayout = (CardLayout) (MyCardLayout.getLayout());
-        lblEdit2.setVisible(false);
-        lblReset.setVisible(false);
-        PnlEditBook.setVisible(false);
-        lblResetBook.setVisible(false);
-        lblStrgTrackReset.setVisible(false);
-       
+        showEmployeePanel();
+        showReceiptPanel();
+        showReceiptTrackingPanel();
+        showbookStoragePanel();
+        showimportBookPanel();
+        showstorageTrackingPanel();
+        
+
     }
+
     // Call Receipt Panel
     public void showReceiptPanel() {
         receiptPanel = new ReceiptForm();
         pnlMainReceipt.addTab("Receipt", receiptPanel);
         pnlMainReceipt.setSelectedComponent(receiptPanel);
+
     }
-    
+
     // Call Receipt Tracking Panel
     public void showReceiptTrackingPanel() {
         receiptTrackingPanel = new ReceiptTrackingForm();
         pnlMainReceipt.addTab("Tracking", receiptTrackingPanel);
-        pnlMainReceipt.setSelectedComponent(receiptTrackingPanel);
+        //pnlMainReceipt.setSelectedComponent(receiptTrackingPanel);
     }
-    
-    // Automatically display value to table
-    
-    public void showEmployee() {
-        employeeList = EmployeeModify.findAll();
-        booksList = BookModify.findAllBooks();
-        
-        tableModelEmp.setRowCount(0);
-        employeeList.forEach((e) -> {
-            tableModelEmp.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/e.getEmpId(), e.getEmpName(),
-                e.getAddress(), e.getBirthday(), e.getStartDate(), e.getPosition(), e.getSalary()});
-        });
-    }
-    
-    public void showBook() {
-        //employeeList = EmployeeModify.findAll();
-        booksList = BookModify.findAllBooks();
 
-        tableModelBook.setRowCount(0);
-        booksList.forEach((b) -> {
-            tableModelBook.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/b.getBookId().trim(), b.getBookName(), b.getAuthor(),
-                b.getGenre(), b.getPublisher(), b.getQuantity(), b.getPrice()});
-        });
+    public void showEmployeePanel() {
+        employeePanel = new EmployeeForm();
+        pnlEmployee.addTab("Staff Info", employeePanel);
+        pnlEmployee.setSelectedComponent(employeePanel);
+    }
+
+    public void showbookStoragePanel() {
+        bookStoragePanel = new BookStorageForm();
+        pnlBook.addTab("Books Storage", bookStoragePanel);
+        pnlBook.setSelectedComponent(bookStoragePanel);
+    }
+
+    public void showimportBookPanel() {
+        importBookPanel = new ImportBookForm();
+        pnlBook.addTab("Import Books", importBookPanel);
+
+    }
+
+    public void showstorageTrackingPanel() {
+        storageTrackingPanel = new StorageTrackingForm();
+        pnlBook.addTab("Storage Tracking", storageTrackingPanel);
+
     }
     
-    public void showStorageTracking() {
-        //employeeList = EmployeeModify.findAll();
-        importList = BookModify.findAllStorageTracking();
-
-        tableModelImport.setRowCount(0);
-        importList.forEach((imp) -> {
-            tableModelImport.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/imp.getBookid().trim(), imp.getDate(),
-                imp.getQuantity(), imp.getPrice(), imp.getDiscount()});
-        });
-    }
+    
+    
+    
+    
     
     
     /**
@@ -137,97 +138,9 @@ public class Main extends javax.swing.JFrame {
         Card1 = new javax.swing.JPanel();
         pnlMainReceipt = new javax.swing.JTabbedPane();
         Card2 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel9 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblBook = new javax.swing.JTable();
-        jPanel12 = new javax.swing.JPanel();
-        lblBookImage = new javax.swing.JLabel();
-        txtSearchBook = new javax.swing.JTextField();
-        btnSearchBook = new javax.swing.JPanel();
-        lblSearchBook = new javax.swing.JLabel();
-        lblResetBook = new javax.swing.JLabel();
-        btnEditBook = new javax.swing.JPanel();
-        lblEditBook = new javax.swing.JLabel();
-        PnlEditBook = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        txtGenre = new javax.swing.JComboBox<>();
-        jLabel25 = new javax.swing.JLabel();
-        btnchooseImg = new javax.swing.JButton();
-        txtBookName = new javax.swing.JTextField();
-        txtAuthor = new javax.swing.JTextField();
-        txtPublisher = new javax.swing.JTextField();
-        btnEditBook2 = new javax.swing.JPanel();
-        lblEditBook2 = new javax.swing.JLabel();
-        lblErrEdit = new javax.swing.JLabel();
-        jPanel17 = new javax.swing.JPanel();
-        lblEditImg = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        btnEditExit = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        txtBookId = new javax.swing.JTextField();
-        txtDate = new com.toedter.calendar.JDateChooser();
-        txtQuantity = new javax.swing.JTextField();
-        txtPrice = new javax.swing.JTextField();
-        txtDiscount = new javax.swing.JTextField();
-        btnAddBooks = new javax.swing.JPanel();
-        lblAddBooks = new javax.swing.JLabel();
-        lblErr = new javax.swing.JLabel();
-        lblBookErr = new javax.swing.JLabel();
-        lblBookErr1 = new javax.swing.JLabel();
-        lblBookErr2 = new javax.swing.JLabel();
-        lblBookErr3 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblStorageTracking = new javax.swing.JTable();
-        txtSearchStrgTrack = new javax.swing.JTextField();
-        btnStrgTrackSearch = new javax.swing.JPanel();
-        lblStrgTrackSearch = new javax.swing.JLabel();
-        lblStrgTrackReset = new javax.swing.JLabel();
+        pnlBook = new javax.swing.JTabbedPane();
         Card3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblEmployee = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        txtDob = new com.toedter.calendar.JDateChooser();
-        txtPass = new javax.swing.JPasswordField();
-        jLabel14 = new javax.swing.JLabel();
-        txtStart = new com.toedter.calendar.JDateChooser();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
-        txtAddress = new javax.swing.JTextField();
-        txtUser = new javax.swing.JTextField();
-        txtConpass = new javax.swing.JPasswordField();
-        txtPosition = new javax.swing.JTextField();
-        txtSalary = new javax.swing.JTextField();
-        btnAddEmp = new javax.swing.JPanel();
-        lblAddEmp = new javax.swing.JLabel();
-        lblEdit2 = new javax.swing.JLabel();
-        lblValErr = new javax.swing.JLabel();
-        lblValErr2 = new javax.swing.JLabel();
-        btnDelete = new javax.swing.JPanel();
-        lblDelete = new javax.swing.JLabel();
-        btnEdit = new javax.swing.JPanel();
-        lblEdit = new javax.swing.JLabel();
-        txtSearch = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JPanel();
-        lblSearch = new javax.swing.JLabel();
-        lblReset = new javax.swing.JLabel();
+        pnlEmployee = new javax.swing.JTabbedPane();
         Card4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -412,7 +325,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -431,7 +344,7 @@ public class Main extends javax.swing.JFrame {
             Card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Card1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlMainReceipt, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
+                .addComponent(pnlMainReceipt)
                 .addContainerGap())
         );
         Card1Layout.setVerticalGroup(
@@ -446,1184 +359,46 @@ public class Main extends javax.swing.JFrame {
 
         Card2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setForeground(new java.awt.Color(0, 181, 204));
-        jTabbedPane1.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-
-        tblBook.setAutoCreateRowSorter(true);
-        tblBook.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        tblBook.setForeground(new java.awt.Color(153, 153, 153));
-        tblBook.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "BookId", "Name", "Author", "Genre", "Publisher", "Quantity", "Price"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblBook.setGridColor(new java.awt.Color(255, 255, 255));
-        tblBook.setIntercellSpacing(new java.awt.Dimension(5, 5));
-        tblBook.setRowHeight(25);
-        tblBook.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        tblBook.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblBookMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblBook);
-        if (tblBook.getColumnModel().getColumnCount() > 0) {
-            tblBook.getColumnModel().getColumn(0).setPreferredWidth(2);
-            tblBook.getColumnModel().getColumn(2).setPreferredWidth(8);
-            tblBook.getColumnModel().getColumn(3).setPreferredWidth(7);
-            tblBook.getColumnModel().getColumn(5).setPreferredWidth(2);
-            tblBook.getColumnModel().getColumn(6).setPreferredWidth(7);
-        }
-
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblBookImage, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblBookImage, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-        );
-
-        txtSearchBook.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        txtSearchBook.setForeground(new java.awt.Color(204, 204, 204));
-        txtSearchBook.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        btnSearchBook.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblSearchBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search2.png"))); // NOI18N
-        lblSearchBook.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSearchBookMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblSearchBookMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblSearchBookMouseExited(evt);
-            }
-        });
-
-        lblResetBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reset.png"))); // NOI18N
-        lblResetBook.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblResetBookMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblResetBookMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblResetBookMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnSearchBookLayout = new javax.swing.GroupLayout(btnSearchBook);
-        btnSearchBook.setLayout(btnSearchBookLayout);
-        btnSearchBookLayout.setHorizontalGroup(
-            btnSearchBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSearchBookLayout.createSequentialGroup()
-                .addComponent(lblSearchBook, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(lblResetBook)
-                .addGap(0, 6, Short.MAX_VALUE))
-        );
-        btnSearchBookLayout.setVerticalGroup(
-            btnSearchBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSearchBookLayout.createSequentialGroup()
-                .addComponent(lblSearchBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
-            .addComponent(lblResetBook, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        btnEditBook.setBackground(new java.awt.Color(0, 181, 204));
-
-        lblEditBook.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblEditBook.setForeground(new java.awt.Color(255, 255, 255));
-        lblEditBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
-        lblEditBook.setText("Edit");
-        lblEditBook.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEditBookMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblEditBookMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblEditBookMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnEditBookLayout = new javax.swing.GroupLayout(btnEditBook);
-        btnEditBook.setLayout(btnEditBookLayout);
-        btnEditBookLayout.setHorizontalGroup(
-            btnEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblEditBook, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-        );
-        btnEditBookLayout.setVerticalGroup(
-            btnEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEditBookLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblEditBook))
-        );
-
-        PnlEditBook.setBackground(new java.awt.Color(255, 255, 255));
-        PnlEditBook.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
-
-        jLabel23.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel23.setText("Book Name");
-
-        jLabel24.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel24.setText("Author");
-
-        txtGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novel", "Children", "Science", "General Knowledge", "Lifestyle" }));
-        txtGenre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(204, 204, 204)));
-
-        jLabel25.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel25.setText("Publisher");
-
-        btnchooseImg.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        btnchooseImg.setText("choose Image");
-        btnchooseImg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnchooseImgActionPerformed(evt);
-            }
-        });
-
-        txtBookName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        txtBookName.setForeground(new java.awt.Color(204, 204, 204));
-        txtBookName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        txtAuthor.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        txtAuthor.setForeground(new java.awt.Color(204, 204, 204));
-        txtAuthor.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        txtPublisher.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        txtPublisher.setForeground(new java.awt.Color(204, 204, 204));
-        txtPublisher.setToolTipText("");
-        txtPublisher.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        btnEditBook2.setBackground(new java.awt.Color(0, 181, 204));
-
-        lblEditBook2.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblEditBook2.setForeground(new java.awt.Color(255, 255, 255));
-        lblEditBook2.setText(" Edit");
-        lblEditBook2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEditBook2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblEditBook2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblEditBook2MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnEditBook2Layout = new javax.swing.GroupLayout(btnEditBook2);
-        btnEditBook2.setLayout(btnEditBook2Layout);
-        btnEditBook2Layout.setHorizontalGroup(
-            btnEditBook2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblEditBook2, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-        );
-        btnEditBook2Layout.setVerticalGroup(
-            btnEditBook2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEditBook2Layout.createSequentialGroup()
-                .addGap(0, 9, Short.MAX_VALUE)
-                .addComponent(lblEditBook2))
-        );
-
-        lblErrEdit.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblErrEdit.setForeground(new java.awt.Color(255, 0, 51));
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblEditImg, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblEditImg, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-        );
-
-        jLabel28.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel28.setText("Genre");
-
-        btnEditExit.setFont(new java.awt.Font("Trebuchet MS", 1, 21)); // NOI18N
-        btnEditExit.setForeground(new java.awt.Color(0, 181, 204));
-        btnEditExit.setText("X");
-        btnEditExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEditExitMouseClicked(evt);
-            }
-        });
-
-        jLabel26.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(204, 204, 204));
-
-        javax.swing.GroupLayout PnlEditBookLayout = new javax.swing.GroupLayout(PnlEditBook);
-        PnlEditBook.setLayout(PnlEditBookLayout);
-        PnlEditBookLayout.setHorizontalGroup(
-            PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlEditBookLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PnlEditBookLayout.createSequentialGroup()
-                        .addComponent(btnchooseImg, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditBook2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblErrEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PnlEditBookLayout.createSequentialGroup()
-                        .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(PnlEditBookLayout.createSequentialGroup()
-                                .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel24)
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(34, 34, 34)
-                                .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtBookName, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                                    .addComponent(txtAuthor)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlEditBookLayout.createSequentialGroup()
-                                .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel25)
-                                    .addComponent(jLabel28))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                                .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtGenre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtPublisher, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlEditBookLayout.createSequentialGroup()
-                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)))
-                        .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PnlEditBookLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 45, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlEditBookLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEditExit)))))
-                .addContainerGap())
-        );
-        PnlEditBookLayout.setVerticalGroup(
-            PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PnlEditBookLayout.createSequentialGroup()
-                .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PnlEditBookLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEditExit)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel23)
-                            .addComponent(txtBookName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24)
-                            .addComponent(txtAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel28))
-                        .addGap(33, 33, 33)
-                        .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(txtPublisher)))
-                    .addGroup(PnlEditBookLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PnlEditBookLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(PnlEditBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PnlEditBookLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(btnchooseImg))
-                            .addComponent(btnEditBook2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlEditBookLayout.createSequentialGroup()
-                        .addComponent(lblErrEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))))
-        );
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(PnlEditBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 944, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(txtSearchBook, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearchBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEditBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtSearchBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(PnlEditBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-        );
-
-        jTabbedPane1.addTab("Book Storage", jPanel9);
-
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel17.setFont(new java.awt.Font("Trebuchet MS", 1, 32)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 181, 204));
-        jLabel17.setText("ADD TO STORAGE");
-
-        jPanel11.setBackground(new java.awt.Color(0, 181, 204));
-        jPanel11.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 181, 204)));
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jLabel18.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel18.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel18.setText("Date");
-
-        jLabel19.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel19.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel19.setText("Book ID");
-
-        jLabel20.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel20.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel20.setText("Discount(%)");
-
-        jLabel21.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel21.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel21.setText("Quantity");
-
-        jLabel22.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel22.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel22.setText("Price (1pcs)");
-
-        txtBookId.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        txtBookId.setForeground(new java.awt.Color(204, 204, 204));
-        txtBookId.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtBookId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBookIdKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBookIdKeyReleased(evt);
-            }
-        });
-
-        txtQuantity.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        txtQuantity.setForeground(new java.awt.Color(204, 204, 204));
-        txtQuantity.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtQuantityKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtQuantityKeyReleased(evt);
-            }
-        });
-
-        txtPrice.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        txtPrice.setForeground(new java.awt.Color(204, 204, 204));
-        txtPrice.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtPrice.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPriceFocusLost(evt);
-            }
-        });
-        txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPriceKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPriceKeyReleased(evt);
-            }
-        });
-
-        txtDiscount.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        txtDiscount.setForeground(new java.awt.Color(204, 204, 204));
-        txtDiscount.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtDiscount.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDiscountKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDiscountKeyReleased(evt);
-            }
-        });
-
-        btnAddBooks.setBackground(new java.awt.Color(0, 181, 204));
-
-        lblAddBooks.setBackground(new java.awt.Color(255, 255, 255));
-        lblAddBooks.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblAddBooks.setForeground(new java.awt.Color(255, 255, 255));
-        lblAddBooks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add2.png"))); // NOI18N
-        lblAddBooks.setText("Add");
-        lblAddBooks.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAddBooksMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblAddBooksMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblAddBooksMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnAddBooksLayout = new javax.swing.GroupLayout(btnAddBooks);
-        btnAddBooks.setLayout(btnAddBooksLayout);
-        btnAddBooksLayout.setHorizontalGroup(
-            btnAddBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAddBooksLayout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
-                .addComponent(lblAddBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        btnAddBooksLayout.setVerticalGroup(
-            btnAddBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnAddBooksLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(lblAddBooks)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        lblErr.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblErr.setForeground(new java.awt.Color(255, 51, 51));
-
-        lblBookErr.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblBookErr.setForeground(new java.awt.Color(255, 0, 51));
-
-        lblBookErr1.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblBookErr1.setForeground(new java.awt.Color(255, 0, 51));
-
-        lblBookErr2.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblBookErr2.setForeground(new java.awt.Color(255, 0, 51));
-
-        lblBookErr3.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lblBookErr3.setForeground(new java.awt.Color(255, 0, 51));
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAddBooks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(88, 88, 88)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDiscount, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtBookId)
-                                    .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblErr, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblBookErr2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblBookErr1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblBookErr3, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblBookErr, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(94, 94, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblBookErr, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38)
-                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel19)
-                                            .addComponent(txtBookId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(47, 47, 47)
-                                .addComponent(jLabel18)))
-                        .addGap(53, 53, 53)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblBookErr1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel22)
-                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblBookErr2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel20)
-                            .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(lblBookErr3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(lblErr, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))))
-        );
-
-        jTabbedPane1.addTab("Import Books", jPanel10);
-
-        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
-
-        tblStorageTracking.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        tblStorageTracking.setForeground(new java.awt.Color(153, 153, 153));
-        tblStorageTracking.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "BookId", "Date", "Quantity", "Price (1pcs)", "Discount"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblStorageTracking.setGridColor(new java.awt.Color(255, 255, 255));
-        tblStorageTracking.setRowHeight(25);
-        tblStorageTracking.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        jScrollPane3.setViewportView(tblStorageTracking);
-
-        txtSearchStrgTrack.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        txtSearchStrgTrack.setForeground(new java.awt.Color(204, 204, 204));
-        txtSearchStrgTrack.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        btnStrgTrackSearch.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblStrgTrackSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search2.png"))); // NOI18N
-        lblStrgTrackSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStrgTrackSearchMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblStrgTrackSearchMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblStrgTrackSearchMouseExited(evt);
-            }
-        });
-
-        lblStrgTrackReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reset.png"))); // NOI18N
-        lblStrgTrackReset.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStrgTrackResetMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblStrgTrackResetMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblStrgTrackResetMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnStrgTrackSearchLayout = new javax.swing.GroupLayout(btnStrgTrackSearch);
-        btnStrgTrackSearch.setLayout(btnStrgTrackSearchLayout);
-        btnStrgTrackSearchLayout.setHorizontalGroup(
-            btnStrgTrackSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnStrgTrackSearchLayout.createSequentialGroup()
-                .addComponent(lblStrgTrackSearch)
-                .addGap(4, 4, 4)
-                .addComponent(lblStrgTrackReset))
-        );
-        btnStrgTrackSearchLayout.setVerticalGroup(
-            btnStrgTrackSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnStrgTrackSearchLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(btnStrgTrackSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblStrgTrackReset)
-                    .addComponent(lblStrgTrackSearch)))
-        );
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtSearchStrgTrack, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(btnStrgTrackSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearchStrgTrack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnStrgTrackSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
-        );
-
-        jTabbedPane1.addTab("Storage tracking", jPanel13);
+        pnlBook.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBook.setForeground(new java.awt.Color(0, 181, 204));
+        pnlBook.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
 
         javax.swing.GroupLayout Card2Layout = new javax.swing.GroupLayout(Card2);
         Card2.setLayout(Card2Layout);
         Card2Layout.setHorizontalGroup(
             Card2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Card2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 952, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlBook, javax.swing.GroupLayout.PREFERRED_SIZE, 973, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
         );
         Card2Layout.setVerticalGroup(
             Card2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Card2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(pnlBook, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
         );
 
         MyCardLayout.add(Card2, "Card2");
 
         Card3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        tblEmployee.setAutoCreateRowSorter(true);
-        tblEmployee.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        tblEmployee.setForeground(new java.awt.Color(153, 153, 153));
-        tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Employee ID", "Name", "Address", "Birthday", "Start Date", "Position", "Salary"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblEmployee.setGridColor(new java.awt.Color(255, 255, 255));
-        tblEmployee.setIntercellSpacing(new java.awt.Dimension(5, 5));
-        tblEmployee.setRowHeight(25);
-        tblEmployee.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        jScrollPane1.setViewportView(tblEmployee);
-        if (tblEmployee.getColumnModel().getColumnCount() > 0) {
-            tblEmployee.getColumnModel().getColumn(0).setResizable(false);
-            tblEmployee.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tblEmployee.getColumnModel().getColumn(3).setResizable(false);
-            tblEmployee.getColumnModel().getColumn(3).setPreferredWidth(5);
-            tblEmployee.getColumnModel().getColumn(4).setResizable(false);
-            tblEmployee.getColumnModel().getColumn(4).setPreferredWidth(5);
-            tblEmployee.getColumnModel().getColumn(5).setResizable(false);
-            tblEmployee.getColumnModel().getColumn(5).setPreferredWidth(5);
-            tblEmployee.getColumnModel().getColumn(6).setPreferredWidth(70);
-        }
-
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Name:");
-
-        jLabel9.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel9.setText("D.O.B:");
-
-        jLabel10.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel10.setText("Username:");
-
-        jLabel11.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel11.setText("Address:");
-
-        jLabel12.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel12.setText("Password:");
-
-        jLabel13.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel13.setText("Confirm Password:");
-
-        txtDob.setForeground(new java.awt.Color(153, 153, 153));
-
-        txtPass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        jLabel14.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel14.setText("Start date:");
-
-        txtStart.setForeground(new java.awt.Color(153, 153, 153));
-
-        jLabel15.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel15.setText("Position:");
-
-        jLabel16.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel16.setText("Salary:");
-
-        txtName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtName.setForeground(new java.awt.Color(153, 153, 153));
-        txtName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        txtAddress.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtAddress.setForeground(new java.awt.Color(153, 153, 153));
-        txtAddress.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        txtUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtUser.setForeground(new java.awt.Color(153, 153, 153));
-        txtUser.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtUserKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtUserKeyReleased(evt);
-            }
-        });
-
-        txtConpass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtConpass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtConpassKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtConpassKeyReleased(evt);
-            }
-        });
-
-        txtPosition.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtPosition.setForeground(new java.awt.Color(153, 153, 153));
-        txtPosition.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        txtSalary.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtSalary.setForeground(new java.awt.Color(153, 153, 153));
-        txtSalary.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtSalary.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSalaryFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtSalaryFocusLost(evt);
-            }
-        });
-        txtSalary.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSalaryKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSalaryKeyReleased(evt);
-            }
-        });
-
-        btnAddEmp.setBackground(new java.awt.Color(0, 181, 204));
-
-        lblAddEmp.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        lblAddEmp.setForeground(new java.awt.Color(255, 255, 255));
-        lblAddEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addEmp.png"))); // NOI18N
-        lblAddEmp.setText("Add Employee");
-        lblAddEmp.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAddEmpMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblAddEmpMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblAddEmpMouseExited(evt);
-            }
-        });
-
-        lblEdit2.setFont(new java.awt.Font("Trebuchet MS", 0, 19)); // NOI18N
-        lblEdit2.setForeground(new java.awt.Color(255, 255, 255));
-        lblEdit2.setText("          Edit");
-        lblEdit2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEdit2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblEdit2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblEdit2MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnAddEmpLayout = new javax.swing.GroupLayout(btnAddEmp);
-        btnAddEmp.setLayout(btnAddEmpLayout);
-        btnAddEmpLayout.setHorizontalGroup(
-            btnAddEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnAddEmpLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(btnAddEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAddEmp))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btnAddEmpLayout.setVerticalGroup(
-            btnAddEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnAddEmpLayout.createSequentialGroup()
-                .addComponent(lblAddEmp)
-                .addGap(2, 2, 2)
-                .addComponent(lblEdit2))
-        );
-
-        lblValErr.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        lblValErr.setForeground(new java.awt.Color(255, 51, 51));
-
-        lblValErr2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        lblValErr2.setForeground(new java.awt.Color(255, 51, 51));
-
-        btnDelete.setBackground(new java.awt.Color(0, 181, 204));
-
-        lblDelete.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        lblDelete.setForeground(new java.awt.Color(255, 255, 255));
-        lblDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.png"))); // NOI18N
-        lblDelete.setText(" Delete");
-        lblDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblDeleteMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblDeleteMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblDeleteMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnDeleteLayout = new javax.swing.GroupLayout(btnDelete);
-        btnDelete.setLayout(btnDeleteLayout);
-        btnDeleteLayout.setHorizontalGroup(
-            btnDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnDeleteLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(lblDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btnDeleteLayout.setVerticalGroup(
-            btnDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-        );
-
-        btnEdit.setBackground(new java.awt.Color(0, 181, 204));
-
-        lblEdit.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        lblEdit.setForeground(new java.awt.Color(255, 255, 255));
-        lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
-        lblEdit.setText("Edit");
-        lblEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEditMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblEditMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblEditMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnEditLayout = new javax.swing.GroupLayout(btnEdit);
-        btnEdit.setLayout(btnEditLayout);
-        btnEditLayout.setHorizontalGroup(
-            btnEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnEditLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(lblEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btnEditLayout.setVerticalGroup(
-            btnEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        txtSearch.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        txtSearch.setForeground(new java.awt.Color(153, 153, 153));
-        txtSearch.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-
-        btnSearch.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search2.png"))); // NOI18N
-        lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSearchMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblSearchMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblSearchMouseExited(evt);
-            }
-        });
-
-        lblReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reset.png"))); // NOI18N
-        lblReset.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblResetMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblResetMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblResetMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnSearchLayout = new javax.swing.GroupLayout(btnSearch);
-        btnSearch.setLayout(btnSearchLayout);
-        btnSearchLayout.setHorizontalGroup(
-            btnSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSearchLayout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(lblSearch)
-                .addGap(3, 3, 3)
-                .addComponent(lblReset, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-        );
-        btnSearchLayout.setVerticalGroup(
-            btnSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSearchLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(btnSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblReset, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSearch))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        pnlEmployee.setBackground(new java.awt.Color(255, 255, 255));
+        pnlEmployee.setForeground(new java.awt.Color(0, 181, 204));
+        pnlEmployee.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
 
         javax.swing.GroupLayout Card3Layout = new javax.swing.GroupLayout(Card3);
         Card3.setLayout(Card3Layout);
         Card3Layout.setHorizontalGroup(
             Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
             .addGroup(Card3Layout.createSequentialGroup()
-                .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Card3Layout.createSequentialGroup()
-                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(Card3Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(Card3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 955, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(Card3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Card3Layout.createSequentialGroup()
-                                .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel11))
-                                .addGap(40, 40, 40)
-                                .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(Card3Layout.createSequentialGroup()
-                                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(441, 441, 441))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Card3Layout.createSequentialGroup()
-                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(Card3Layout.createSequentialGroup()
-                                                .addComponent(jLabel9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(lblValErr, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblValErr2, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnAddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(Card3Layout.createSequentialGroup()
-                                .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(Card3Layout.createSequentialGroup()
-                                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel14)
-                                            .addComponent(jLabel10))
-                                        .addGap(31, 31, 31)
-                                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(Card3Layout.createSequentialGroup()
-                                                .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(txtStart, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                                    .addComponent(txtPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(29, 29, 29)
-                                                .addComponent(jLabel13)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtConpass, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(Card3Layout.createSequentialGroup()
-                                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel16)
-                                            .addComponent(jLabel15))
-                                        .addGap(31, 31, 31)
-                                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(384, 384, 384)))))
+                .addContainerGap()
+                .addComponent(pnlEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
                 .addContainerGap())
         );
         Card3Layout.setVerticalGroup(
             Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Card3Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Card3Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel9)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(Card3Layout.createSequentialGroup()
-                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13)
-                            .addComponent(txtConpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(txtStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(Card3Layout.createSequentialGroup()
-                        .addComponent(lblValErr, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblValErr2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnAddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(pnlEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         MyCardLayout.add(Card3, "Card3");
@@ -1638,7 +413,7 @@ public class Main extends javax.swing.JFrame {
         );
         Card4Layout.setVerticalGroup(
             Card4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGap(0, 723, Short.MAX_VALUE)
         );
 
         MyCardLayout.add(Card4, "Card4");
@@ -1665,18 +440,9 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     
-// Hover effect
-    
-    public void btnHover(JPanel panel) {
-        Color clr = new Color(0, 153, 204);
-        panel.setBackground(clr);
-    }
-    
-    public void btnHoverExt(JPanel panel){
-        Color clr = new Color(0, 181, 204);
-        panel.setBackground(clr);
-    }
+   
     
     
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
@@ -1755,84 +521,11 @@ public class Main extends javax.swing.JFrame {
         cardlayout.show(MyCardLayout, "Card4");
     }//GEN-LAST:event_jLabel7MouseClicked
 
-// CODE OF ADD BUTTON
-    // CODE OF HOVER EFFECT  
-    private void lblAddEmpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddEmpMouseEntered
-        btnHover(btnAddEmp);
-    }//GEN-LAST:event_lblAddEmpMouseEntered
-
-    private void lblAddEmpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddEmpMouseExited
-        btnHoverExt(btnAddEmp);
-    }//GEN-LAST:event_lblAddEmpMouseExited
-
    
-//Password validation
-    public void checkPass(){
-        String pass = txtPass.getText();
-        if(!txtConpass.getText().equals(pass)) {
-            lblValErr.setText("*Password not matched!");
-        }
-        else {
-            lblValErr.setText("");
-        }
-              
-    }
-    private void txtConpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConpassKeyPressed
-        checkPass();
-    }//GEN-LAST:event_txtConpassKeyPressed
 
-    private void txtConpassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConpassKeyReleased
-        checkPass();
-    }//GEN-LAST:event_txtConpassKeyReleased
-
-//User, BookId validation - not contain space
-    
-    public void checkSpace(JTextField text, JLabel lbl){
-        String user = text.getText();
-        if(user.indexOf(" ")>=0) {
-            lbl.setText("*Text must not contain spaces!");
-        }
-        else {
-            lbl.setText("");
-        }   
-    }
-    private void txtUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyPressed
-        checkSpace(txtUser, lblValErr);
-    }//GEN-LAST:event_txtUserKeyPressed
-
-    private void txtUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyReleased
-        checkSpace(txtUser, lblValErr);
-    }//GEN-LAST:event_txtUserKeyReleased
-
-//Salary validation
-    
-    public void checkSalary() {
-        String salary = txtSalary.getText().replace(",", "");
-        if (salary.matches("\\d+")) {
-            float salary2 = Float.parseFloat(salary);
-            if (salary2 < 4000000) {
-                lblValErr.setText("Salary must greater than or equal to 4.000.000!");
-            } else {
-                lblValErr.setText("");
-            }
-        } else {
-            lblValErr.setText("*Accept digit only!");         
-        }
-    }
-
-// Digit validation
-    
-    public void checkDigit(JTextField text, JLabel lbl) {
-        String check = text.getText().replace(",", "");
-        if (!check.matches("\\d+")) {
-            lbl.setText("*Accept digit only!");
-        } else {
-            lbl.setText(""); 
-        }
-    }
     
 // Format Number   
-
+/*
     public void formatNumber() {
         NumberFormat numberFormatter = new DecimalFormat("#,###,###");
         
@@ -1843,7 +536,7 @@ public class Main extends javax.swing.JFrame {
             txtSalary.setText(newSal);
         }
     }
-    
+ */   
     public void formatNumber_(JTextField text) {
         NumberFormat numberFormatter = new DecimalFormat("#,###,###");
         
@@ -1855,594 +548,11 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-// discount validation
-    
-    public void checkDiscount(JTextField text, JLabel lbl) {
-        String num = text.getText().replace(",", "");
-        if (num.matches("\\d+")) {
-            int num2 = Integer.parseInt(num);
-            if (num2 < 0 || num2 > 100) {
-                lbl.setText("Discount range from 0% - 100%");
-            } else {
-                lbl.setText("");
-            }
-        } else {
-            lbl.setText("*Accept digit only!");
-        }
-
-    }
 
     
-    private void txtSalaryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalaryKeyPressed
-        checkSalary();
-    }//GEN-LAST:event_txtSalaryKeyPressed
-
-    private void txtSalaryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalaryKeyReleased
-        checkSalary();
-    }//GEN-LAST:event_txtSalaryKeyReleased
-
-    private void txtSalaryFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalaryFocusLost
-        formatNumber();
-    }//GEN-LAST:event_txtSalaryFocusLost
-
-    private void txtSalaryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalaryFocusGained
-        //txtSalary.setText("");
-    }//GEN-LAST:event_txtSalaryFocusGained
-
-// Add Employee button 
-    private void lblAddEmpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddEmpMouseClicked
-        String name, address, user, pass, conpass, position, salary;
-        Date dob, startdate;
-        name = txtName.getText();
-        address = txtAddress.getText();
-        user = txtUser.getText();
-        pass = txtPass.getText();
-        conpass = txtConpass.getText();
-        position = txtPosition.getText();
-        salary = txtSalary.getText();
-
-        dob = txtDob.getDate();
-        startdate = txtStart.getDate();
-        //lblEdit2.setVisible(true);
-        if (name.equals("")
-                || address.equals("")
-                || user.equals("")
-                || pass.equals("")
-                || conpass.equals("")
-                || position.equals("")
-                || salary.equals("")
-                || dob == null
-                || startdate == null) {
-            lblValErr2.setText("*Please fill in all fields!");
-        } else if (lblValErr.getText().equals("")) {
-
-            double salarynum = Double.parseDouble(txtSalary.getText().replace(",", ""));
-            Employee emp = new Employee(name, user, pass, address, position, dob, startdate, salarynum);
-            EmployeeModify.insert(emp);
-            lblValErr2.setText("Add sucess!");
-            showEmployee();
-
-            txtName.setText("");
-            txtAddress.setText("");
-            txtUser.setText("");
-            txtPass.setText("");
-            txtConpass.setText("");
-            txtPosition.setText("");
-            txtSalary.setText("");
-            txtDob.setDate(null);
-            txtStart.setDate(null);
-
-        }
-    }//GEN-LAST:event_lblAddEmpMouseClicked
-
-// CODE OF DELETE BUTTON EMPLOYEE
     
-    private void lblDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteMouseClicked
-        int selectedIndex = tblEmployee.getSelectedRow();
-        employeeList = EmployeeModify.findAll();
-        if (selectedIndex >= 0) {
-            Employee emp = employeeList.get(selectedIndex);
-            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this person?");
-            //System.out.println(emp.getEmpId());
-            if (option == 0) {
-                EmployeeModify.delete(emp.getEmpId());
-                showEmployee();
-                EmployeeModify.resetIncrement();
-            }
 
-        }
-    }//GEN-LAST:event_lblDeleteMouseClicked
-
-    private void lblDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteMouseEntered
-        Color clr = new Color(0, 153, 204);
-        btnDelete.setBackground(clr);
-    }//GEN-LAST:event_lblDeleteMouseEntered
-
-    private void lblDeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteMouseExited
-        Color clr = new Color(0, 181, 204);
-        btnDelete.setBackground(clr);
-    }//GEN-LAST:event_lblDeleteMouseExited
-
-    private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        int selectedIndex = tblEmployee.getSelectedRow();
-        String name, address, user, pass, conpass, position, salary;
-        Date dob, startdate;
-        name = txtName.getText();
-        address = txtAddress.getText();
-        user = txtUser.getText();
-        pass = txtPass.getText();
-        conpass = txtConpass.getText();
-        position = txtPosition.getText();
-        salary = txtSalary.getText();
-
-        dob = txtDob.getDate();
-        startdate = txtStart.getDate();
-
-        employeeList = EmployeeModify.findAll();
-        if (selectedIndex >= 0) {
-            Employee emp = employeeList.get(selectedIndex);
-            int option = JOptionPane.showConfirmDialog(this, "Do you want to edit this person?");
-            //System.out.println(emp.getEmpId());
-            if (option == 0) {
-                txtName.setText(emp.getEmpName());
-                txtAddress.setText(emp.getAddress());
-                txtUser.setText(emp.getUserName());
-                txtPass.setText(emp.getPassword());
-                txtConpass.setText(emp.getPassword());
-                txtPosition.setText(emp.getPosition());
-                txtSalary.setText(Double.toString(emp.getSalary()));
-                txtDob.setDate(emp.getBirthday());
-                txtStart.setDate(emp.getStartDate());
-
-                lblAddEmp.setVisible(false);
-                lblEdit2.setVisible(true);
-                lblValErr.setText("");
-                lblValErr2.setText("");
-                formatNumber();
-
-            }
-
-        }
-    }//GEN-LAST:event_lblEditMouseClicked
-
-    private void lblEdit2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEdit2MouseClicked
-        int selectedIndex = tblEmployee.getSelectedRow();
-        if (selectedIndex >= 0) {
-            Employee emp = employeeList.get(selectedIndex);
-            int id = emp.getEmpId();
-            String name, address, user, pass, conpass, position, salary;
-            Date dob, startdate;
-            name = txtName.getText();
-            address = txtAddress.getText();
-            user = txtUser.getText();
-            pass = txtPass.getText();
-            conpass = txtConpass.getText();
-            position = txtPosition.getText();
-            salary = txtSalary.getText();
-
-            dob = txtDob.getDate();
-            startdate = txtStart.getDate();
-            //lblEdit2.setVisible(true);
-            if (name.equals("")
-                    || address.equals("")
-                    || user.equals("")
-                    || pass.equals("")
-                    || conpass.equals("")
-                    || position.equals("")
-                    || salary.equals("")
-                    || dob == null
-                    || startdate == null) {
-                lblValErr2.setText("*Please fill in all fields!");
-            } else if (lblValErr.getText().equals("")) {
-
-                double salarynum = Double.parseDouble(txtSalary.getText().replace(",", ""));
-                Employee emp1 = new Employee(id, name, user, pass, address, position, dob, startdate, salarynum);
-                EmployeeModify.update(emp1);
-                lblValErr2.setText("Edit sucess!");
-                showEmployee();
-
-                txtName.setText("");
-                txtAddress.setText("");
-                txtUser.setText("");
-                txtPass.setText("");
-                txtConpass.setText("");
-                txtPosition.setText("");
-                txtSalary.setText("");
-                txtDob.setDate(null);
-                txtStart.setDate(null);
-                lblEdit2.setVisible(false);
-                lblAddEmp.setVisible(true);
-            }
-        }
-    }//GEN-LAST:event_lblEdit2MouseClicked
-
-    private void lblEdit2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEdit2MouseEntered
-        btnHover(btnAddEmp);
-    }//GEN-LAST:event_lblEdit2MouseEntered
-
-    private void lblEdit2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEdit2MouseExited
-        btnHoverExt(btnAddEmp);
-    }//GEN-LAST:event_lblEdit2MouseExited
-
-    private void lblEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseEntered
-        btnHover(btnEdit);
-    }//GEN-LAST:event_lblEditMouseEntered
-
-    private void lblEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseExited
-        btnHoverExt(btnEdit);
-    }//GEN-LAST:event_lblEditMouseExited
-
-    private void lblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseClicked
-
-        String find = txtSearch.getText();
-        if (find != null && find.length() > 0) {
-            lblReset.setVisible(true);
-            lblSearch.setVisible(false);
-            employeeList = EmployeeModify.search(find);
-
-            tableModelEmp.setRowCount(0);
-            employeeList.forEach((e) -> {
-                tableModelEmp.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/e.getEmpId(), e.getEmpName(),
-                    e.getAddress(), e.getBirthday(), e.getStartDate(), e.getPosition(), e.getSalary()});
-            });
-        } else {
-            showEmployee();
-        }
-    }//GEN-LAST:event_lblSearchMouseClicked
-
-    private void lblResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResetMouseClicked
-        lblReset.setVisible(false);
-        lblSearch.setVisible(true);
-        showEmployee();
-        txtSearch.setText("");
-    }//GEN-LAST:event_lblResetMouseClicked
-
-    private void lblSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseEntered
-        Color clr = new Color(204, 204, 204);
-        btnSearch.setBackground(clr);
-    }//GEN-LAST:event_lblSearchMouseEntered
-
-    private void lblSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseExited
-        Color clr = new Color(254, 254, 254);
-        btnSearch.setBackground(clr);
-    }//GEN-LAST:event_lblSearchMouseExited
-
-    private void lblResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResetMouseEntered
-        Color clr = new Color(204, 204, 204);
-        btnSearch.setBackground(clr);
-    }//GEN-LAST:event_lblResetMouseEntered
-
-    private void lblResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResetMouseExited
-        Color clr = new Color(254, 254, 254);
-        btnSearch.setBackground(clr);
-    }//GEN-LAST:event_lblResetMouseExited
-    
-    // Code function of adding books to storage
-    
-    private void lblAddBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddBooksMouseClicked
-        booksList = BookModify.findAllBooks();
         
-        String bookid, quantity, price, discount;
-        Date date;
-        quantity = txtQuantity.getText();
-        bookid = txtBookId.getText();
-        date = txtDate.getDate();
-        price = txtPrice.getText();
-        discount = txtDiscount.getText();
-
-        if (bookid == "" || quantity == "" || date == null || price == "" || discount == "" || 
-            !lblBookErr1.getText().equals("") || !lblBookErr2.getText().equals("") || !lblBookErr3.getText().equals("")) {
-            lblErr.setText("*All fields must be filled in!");
-        } else {
-            int count = 0;
-            for (int i = 0; i < booksList.size(); i++) {
-                if (booksList.get(i).getBookId().trim().equals(bookid)) {
-                    count++; break;
-                }
-            }
-                if (count==0) {
-                    String txt1 = bookid;
-                    String txt2 = quantity;
-                    String txt3 = price;
-                    AddBooks addBooks = new AddBooks(txt1, txt2, txt3);
-
-                    addBooks.show();
-               
-                } else if(count ==1) {
-                    int quantity1 = Integer.parseInt(quantity);
-                    long price1 = Long.parseLong(price.replace(",", ""));
-                    float discount1 = Float.parseFloat(discount);
-                    Import imp = new Import(quantity1, bookid, date, price1, discount1);
-                    BookModify.inserttoImport(imp);
-                    
-                    lblErr.setText("Add sucess!");
-                    showStorageTracking();
-                    
-                    int getIndex;
-                    for(getIndex = 0; getIndex < booksList.size(); getIndex++) {
-                        if (booksList.get(getIndex).getBookId().trim().equals(bookid)) {
-                    getIndex++; break;
-                }
-                    }
-                    String updateBook = booksList.get(getIndex-1).getBookId();
-                    int newQuantity = Integer.parseInt(quantity) + booksList.get(getIndex-1).getQuantity();
-                    long newPrice = Long.parseLong(price.replace(",", ""));
-                    
-                    Books bk1 = new Books(updateBook, newQuantity, newPrice);
-                    BookModify.updateOfBookPrice(bk1);
-                    showBook();
-                    
-                    txtQuantity.setText("");
-                    txtBookId.setText("");
-                    txtDate.setDate(null);
-                    txtPrice.setText("");
-                    txtDiscount.setText("");
-                }
-            } 
-    }//GEN-LAST:event_lblAddBooksMouseClicked
-
-    private void txtBookIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBookIdKeyPressed
-        checkSpace(txtBookId, lblBookErr);
-    }//GEN-LAST:event_txtBookIdKeyPressed
-
-    private void txtBookIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBookIdKeyReleased
-        checkSpace(txtBookId, lblBookErr);
-    }//GEN-LAST:event_txtBookIdKeyReleased
-
-    private void txtQuantityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyPressed
-        checkDigit(txtQuantity, lblBookErr1);
-    }//GEN-LAST:event_txtQuantityKeyPressed
-
-    private void txtQuantityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyReleased
-        checkDigit(txtQuantity, lblBookErr1);
-    }//GEN-LAST:event_txtQuantityKeyReleased
-
-    private void txtPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPriceFocusLost
-        formatNumber_(txtPrice);
-    }//GEN-LAST:event_txtPriceFocusLost
-
-    private void txtPriceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriceKeyPressed
-        checkDigit(txtPrice, lblBookErr2);
-    }//GEN-LAST:event_txtPriceKeyPressed
-
-    private void txtPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriceKeyReleased
-        checkDigit(txtPrice, lblBookErr2);
-    }//GEN-LAST:event_txtPriceKeyReleased
-
-    private void txtDiscountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiscountKeyPressed
-        checkDiscount(txtDiscount, lblBookErr3);
-    }//GEN-LAST:event_txtDiscountKeyPressed
-
-    private void txtDiscountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiscountKeyReleased
-        checkDiscount(txtDiscount, lblBookErr3);
-    }//GEN-LAST:event_txtDiscountKeyReleased
-
-    private void lblAddBooksMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddBooksMouseEntered
-        btnHover(btnAddBooks);
-    }//GEN-LAST:event_lblAddBooksMouseEntered
-
-    private void lblAddBooksMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddBooksMouseExited
-        btnHoverExt(btnAddBooks);
-    }//GEN-LAST:event_lblAddBooksMouseExited
-
-    private void tblBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBookMouseClicked
-        int selectedIndex = tblBook.getSelectedRow();
-        booksList = BookModify.findAllBooks();
-        if (selectedIndex >= 0) {
-            Books bk = booksList.get(selectedIndex);
-            Image img;
-            try {
-                img = BookModify.createImageFromByteArray(bk.getImage(), "jpg");
-                lblBookImage.setIcon(new ImageIcon(img));
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_tblBookMouseClicked
-
-// Search BOOK function
-    
-    private void lblSearchBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchBookMouseClicked
-        String find = txtSearchBook.getText();
-        if (find != null && find.length() > 0) {
-            lblResetBook.setVisible(true);
-            lblSearchBook.setVisible(false);
-            booksList = BookModify.searchBook(find);
-
-            tableModelBook.setRowCount(0);
-            booksList.forEach((b) -> {
-                tableModelBook.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/b.getBookId().trim(), b.getBookName(), b.getAuthor(),
-                b.getGenre(), b.getPublisher(), b.getQuantity(), b.getPrice()});
-            });
-        } else {
-            showBook();
-        }
-    }//GEN-LAST:event_lblSearchBookMouseClicked
-
-    private void lblResetBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResetBookMouseClicked
-        lblResetBook.setVisible(false);
-        lblSearchBook.setVisible(true);
-        showBook();
-        txtSearchBook.setText("");
-    }//GEN-LAST:event_lblResetBookMouseClicked
-
-    private void lblSearchBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchBookMouseEntered
-        Color clr = new Color(204, 204, 204);
-        btnSearchBook.setBackground(clr);
-    }//GEN-LAST:event_lblSearchBookMouseEntered
-
-    private void lblSearchBookMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchBookMouseExited
-        Color clr = new Color(254, 254, 254);
-        btnSearchBook.setBackground(clr);
-    }//GEN-LAST:event_lblSearchBookMouseExited
-
-    private void lblResetBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResetBookMouseEntered
-        Color clr = new Color(204, 204, 204);
-        btnSearchBook.setBackground(clr);
-    }//GEN-LAST:event_lblResetBookMouseEntered
-
-    private void lblResetBookMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResetBookMouseExited
-        Color clr = new Color(254, 254, 254);
-        btnSearchBook.setBackground(clr);
-    }//GEN-LAST:event_lblResetBookMouseExited
-
-    private void lblEditBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditBookMouseClicked
-        int selectedIndex = tblBook.getSelectedRow();
-        String bookName, author, genre, publisher;
-        bookName = txtBookName.getText();
-        author = txtAuthor.getText();
-        publisher = txtPublisher.getText();
-        lblErrEdit.setText("");
-        
-        booksList = BookModify.findAllBooks();
-        if (selectedIndex >= 0) {
-            Books bk = booksList.get(selectedIndex);
-            int option = JOptionPane.showConfirmDialog(this, "Do you want to edit this book?");
-            //System.out.println(emp.getEmpId());
-            if (option == 0) {
-                PnlEditBook.setVisible(true);
-                jLabel26.setText(bk.getBookId().trim());
-                txtBookName.setText(bk.getBookName());
-                txtAuthor.setText(bk.getAuthor());
-                txtPublisher.setText(bk.getPublisher());
-                Image img;
-            try {
-                img = BookModify.createImageFromByteArray(bk.getImage(), "jpg");
-                lblEditImg.setIcon(new ImageIcon(img));
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            }
-
-        }
-    }//GEN-LAST:event_lblEditBookMouseClicked
-
-    private void btnchooseImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnchooseImgActionPerformed
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                if (f.isDirectory()) {
-                    return true;
-                } else {
-                    return f.getName().toLowerCase().endsWith(".jpg");
-                }
-            }
-            
-            @Override
-            public String getDescription() {
-                return "Image file (*.jpg)";
-            }
-        });
-        if (chooser.showOpenDialog(jPanel1) == JFileChooser.CANCEL_OPTION) {
-            return;
-        }
-        File file = chooser.getSelectedFile();
-        try {
-            ImageIcon icon = new ImageIcon(file.getPath());
-            System.out.println(file.getPath());
-            Image img = BookModify.resize(icon.getImage(), 140, 160);
-            ImageIcon resizedIcon = new ImageIcon(img);
-            lblEditImg.setIcon(resizedIcon);
-            //bookImage = BookModify.toByteArray(img, "jpg");
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnchooseImgActionPerformed
-
-    private void lblEditBook2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditBook2MouseClicked
-        int selectedIndex = tblBook.getSelectedRow();
-        String bookId, bookName, author, genre, publisher;
-        bookName = txtBookName.getText();
-        author = txtAuthor.getText();
-        publisher = txtPublisher.getText();
-        genre = txtGenre.getActionCommand();
-        bookId = jLabel26.getText();
-        ImageIcon icon = (ImageIcon) lblEditImg.getIcon();
-        Image img = icon.getImage();
-        
-        try {
-            bookImage = BookModify.toByteArray(img, "jpg");
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        if (bookName.equals("") || author.equals("") || publisher.equals("") || bookImage == null) {
-            lblErrEdit.setText("*Please fill in all fields!");
-        } else {
-            
-            Books bk = new Books(bookId, bookName, author, genre, publisher, bookImage);
-            BookModify.updateOfBookInformation(bk);
-            PnlEditBook.setVisible(false);
-            showBook();
-        }        
-    }//GEN-LAST:event_lblEditBook2MouseClicked
-
-    private void btnEditExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditExitMouseClicked
-        PnlEditBook.setVisible(false);
-    }//GEN-LAST:event_btnEditExitMouseClicked
-
-    private void lblEditBook2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditBook2MouseEntered
-        btnHover(btnEditBook2);
-    }//GEN-LAST:event_lblEditBook2MouseEntered
-
-    private void lblEditBook2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditBook2MouseExited
-        btnHoverExt(btnEditBook2);
-    }//GEN-LAST:event_lblEditBook2MouseExited
-
-    private void lblEditBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditBookMouseEntered
-        btnHover(btnEditBook);
-    }//GEN-LAST:event_lblEditBookMouseEntered
-
-    private void lblEditBookMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditBookMouseExited
-        btnHoverExt(btnEditBook);
-    }//GEN-LAST:event_lblEditBookMouseExited
-
-    private void lblStrgTrackSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrgTrackSearchMouseClicked
-        String find = txtSearchStrgTrack.getText();
-        if (find != null && find.length() > 0) {
-            lblStrgTrackReset.setVisible(true);
-            lblStrgTrackSearch.setVisible(false);
-            importList = BookModify.searchStorageTracking(find);
-
-            tableModelImport.setRowCount(0);
-            importList.forEach((b) -> {
-                tableModelImport.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/b.getBookid().trim(), b.getDate(), b.getQuantity()
-                        , b.getPrice(), b.getDiscount()});
-            });
-        } else {
-            showStorageTracking();
-        }
-    }//GEN-LAST:event_lblStrgTrackSearchMouseClicked
-
-    private void lblStrgTrackResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrgTrackResetMouseClicked
-        lblStrgTrackReset.setVisible(false);
-        lblStrgTrackSearch.setVisible(true);
-        showStorageTracking();
-        txtSearchStrgTrack.setText("");
-    }//GEN-LAST:event_lblStrgTrackResetMouseClicked
-
-    private void lblStrgTrackSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrgTrackSearchMouseEntered
-        Color clr = new Color(204, 204, 204);
-        btnStrgTrackSearch.setBackground(clr);
-    }//GEN-LAST:event_lblStrgTrackSearchMouseEntered
-
-    private void lblStrgTrackSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrgTrackSearchMouseExited
-        Color clr = new Color(254, 254, 254);
-        btnStrgTrackSearch.setBackground(clr);
-    }//GEN-LAST:event_lblStrgTrackSearchMouseExited
-
-    private void lblStrgTrackResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrgTrackResetMouseEntered
-        Color clr = new Color(204, 204, 204);
-        btnStrgTrackSearch.setBackground(clr);
-    }//GEN-LAST:event_lblStrgTrackResetMouseEntered
-
-    private void lblStrgTrackResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrgTrackResetMouseExited
-        Color clr = new Color(254, 254, 254);
-        btnStrgTrackSearch.setBackground(clr);
-    }//GEN-LAST:event_lblStrgTrackResetMouseExited
-
     /**
      * @param args the command line arguments
      */
@@ -2484,51 +594,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel Card3;
     private javax.swing.JPanel Card4;
     private javax.swing.JPanel MyCardLayout;
-    private javax.swing.JPanel PnlEditBook;
-    private javax.swing.JPanel btnAddBooks;
-    private javax.swing.JPanel btnAddEmp;
-    private javax.swing.JPanel btnDelete;
-    private javax.swing.JPanel btnEdit;
-    private javax.swing.JPanel btnEditBook;
-    private javax.swing.JPanel btnEditBook2;
-    private javax.swing.JLabel btnEditExit;
-    private javax.swing.JPanel btnSearch;
-    private javax.swing.JPanel btnSearchBook;
-    private javax.swing.JPanel btnStrgTrackSearch;
-    private javax.swing.JButton btnchooseImg;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2536,60 +609,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lblAddBooks;
-    private javax.swing.JLabel lblAddEmp;
-    private javax.swing.JLabel lblBookErr;
-    private javax.swing.JLabel lblBookErr1;
-    private javax.swing.JLabel lblBookErr2;
-    private javax.swing.JLabel lblBookErr3;
-    private javax.swing.JLabel lblBookImage;
-    private javax.swing.JLabel lblDelete;
-    private javax.swing.JLabel lblEdit;
-    private javax.swing.JLabel lblEdit2;
-    private javax.swing.JLabel lblEditBook;
-    private javax.swing.JLabel lblEditBook2;
-    private javax.swing.JLabel lblEditImg;
-    private javax.swing.JLabel lblErr;
-    private javax.swing.JLabel lblErrEdit;
-    private javax.swing.JLabel lblReset;
-    private javax.swing.JLabel lblResetBook;
-    private javax.swing.JLabel lblSearch;
-    private javax.swing.JLabel lblSearchBook;
-    private javax.swing.JLabel lblStrgTrackReset;
-    private javax.swing.JLabel lblStrgTrackSearch;
-    private javax.swing.JLabel lblValErr;
-    private javax.swing.JLabel lblValErr2;
+    private javax.swing.JTabbedPane pnlBook;
+    private javax.swing.JTabbedPane pnlEmployee;
     private javax.swing.JTabbedPane pnlMainReceipt;
-    private javax.swing.JTable tblBook;
-    private javax.swing.JTable tblEmployee;
-    private javax.swing.JTable tblStorageTracking;
-    private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtAuthor;
-    private javax.swing.JTextField txtBookId;
-    private javax.swing.JTextField txtBookName;
-    private javax.swing.JPasswordField txtConpass;
-    private com.toedter.calendar.JDateChooser txtDate;
-    private javax.swing.JTextField txtDiscount;
-    private com.toedter.calendar.JDateChooser txtDob;
-    private javax.swing.JComboBox<String> txtGenre;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JPasswordField txtPass;
-    private javax.swing.JTextField txtPosition;
-    private javax.swing.JTextField txtPrice;
-    private javax.swing.JTextField txtPublisher;
-    private javax.swing.JTextField txtQuantity;
-    private javax.swing.JTextField txtSalary;
-    private javax.swing.JTextField txtSearch;
-    private javax.swing.JTextField txtSearchBook;
-    private javax.swing.JTextField txtSearchStrgTrack;
-    private com.toedter.calendar.JDateChooser txtStart;
-    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectsem2;
+package Form;
 
+import Model.Employee;
+import Model.EmployeeModify;
 import java.awt.*;
 import javax.swing.*;
+import projectsem2.Main;
 
 /**
  *
@@ -19,6 +22,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        txtPass2.setVisible(false);
     }
 
     /**
@@ -35,10 +39,10 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnMini = new javax.swing.JPanel();
         txtPass = new javax.swing.JTextField();
+        txtPass2 = new javax.swing.JPasswordField();
         txtUser = new javax.swing.JTextField();
         btnSignIn = new javax.swing.JPanel();
         lblLogin = new javax.swing.JLabel();
-        txtPass2 = new javax.swing.JPasswordField();
         chkBox = new javax.swing.JCheckBox();
         javax.swing.JLabel btnExit = new javax.swing.JLabel();
         javax.swing.JLabel btnExit1 = new javax.swing.JLabel();
@@ -81,6 +85,15 @@ public class Login extends javax.swing.JFrame {
         });
         btnMini.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 320, 50));
 
+        txtPass2.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
+        txtPass2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtPass2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPass2FocusLost(evt);
+            }
+        });
+        btnMini.add(txtPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 320, 40));
+
         txtUser.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         txtUser.setForeground(new java.awt.Color(51, 51, 51));
         txtUser.setText("Enter Username...");
@@ -118,15 +131,6 @@ public class Login extends javax.swing.JFrame {
         btnSignIn.add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 150, 60));
 
         btnMini.add(btnSignIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 160, 60));
-
-        txtPass2.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
-        txtPass2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtPass2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPass2FocusLost(evt);
-            }
-        });
-        btnMini.add(txtPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 320, 40));
 
         chkBox.setBackground(new java.awt.Color(255, 255, 255));
         chkBox.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
@@ -200,6 +204,7 @@ public class Login extends javax.swing.JFrame {
                 repaint();
                 revalidate();
                 txtPass.setVisible(false);
+                txtPass2.setVisible(true);
                 txtPass2.requestFocusInWindow();
                 lblError.setText("");
             }  
@@ -252,12 +257,18 @@ public class Login extends javax.swing.JFrame {
             lblError.setText("Please enter username and password!");
         } else 
         {
-            lblError.setText("");
+            Employee emp = EmployeeModify.checkLogin(user, pass2);
+             if(emp==null) {
+                 lblError.setText("Username and Password not valid!");
+             }
+             else{
             //Home home = new Home();
             //home.show();
+            lblError.setText("Login Successfull!");
             Main main = new Main();
             main.show();
             this.dispose();
+             }
         }
     }//GEN-LAST:event_lblLoginMouseClicked
 

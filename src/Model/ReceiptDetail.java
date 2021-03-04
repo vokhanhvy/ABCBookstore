@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Pattern;
+package Model;
 
 /**
  *
@@ -11,17 +11,16 @@ package Pattern;
  */
 public class ReceiptDetail {
     String receiptId, bookId, bookName;
-    int quantity, empId, discount;
+    int quantity, empId;
     long price, total;
 
-    public ReceiptDetail(String receiptId, String bookId, String bookName,int quantity, int empId, long price, int discount, long total) {
+    public ReceiptDetail(String receiptId, String bookId, String bookName,int quantity, int empId, long price, long total) {
         this.receiptId = receiptId;
         this.bookId = bookId;
         this.bookName = bookName;
         this.quantity = quantity;
         this.empId = empId;
         this.price = price;
-        this.discount = discount;
         this.total = total;
     }
 
@@ -89,12 +88,5 @@ public class ReceiptDetail {
         this.bookName = bookName;
     }
 
-    public int getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(int discount) {
-        this.discount = discount;
-    }
     
 }

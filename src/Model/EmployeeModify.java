@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectsem2;
+package Model;
 
-import java.awt.List;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * CRUD (insert, update, delete, findAll)
@@ -30,8 +26,7 @@ public class EmployeeModify {
         Connection connection = null;
         Statement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "select * from Test_Employees";
             statement = connection.createStatement();
@@ -77,8 +72,7 @@ public class EmployeeModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "insert into Test_Employees(EmpName, UserName, PassWord, Address, Birthday, Startdate, Position, Salary) values(?, ?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
@@ -127,8 +121,7 @@ public class EmployeeModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "update Test_Employees set EmpName=?, UserName=?, PassWord=?, Address=?, Birthday=?, Startdate=?, Position=?, Salary=? where EmpId=?";
             statement = connection.prepareCall(sql);
@@ -177,8 +170,7 @@ public class EmployeeModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             
             String sql = "delete from Test_Employees where EmpId=?";
@@ -214,8 +206,7 @@ public class EmployeeModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
 
             String sql = "declare @max int; select @max = max(EmpId) from Test_Employees;dbcc checkident(Test_Employees, reseed, @max)";
@@ -250,8 +241,7 @@ public class EmployeeModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "select * from Test_Employees where concat('.', EmpName, '.', Address, '.', Position, '.') like ?";
             statement = connection.prepareCall(sql);
@@ -293,5 +283,56 @@ public class EmployeeModify {
         }
         //end here
         return employeeList;
+    }
+    
+    //Method to check if username and password is valid
+    public static Employee checkLogin(String user, String pass) {
+        
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            //querry
+            String sql = "select * from Test_Employees where UserName=? and PassWord=?";
+            statement = connection.prepareCall(sql);
+            
+            statement.setString(1, user);
+            statement.setString(2, pass);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Employee emp = new Employee(resultSet.getInt("EmpId"),
+                                            resultSet.getString("EmpName"),
+                                            resultSet.getString("UserName"),
+                                            resultSet.getString("PassWord"),
+                                            resultSet.getString("Address"),
+                                            resultSet.getString("Position"),
+                                            resultSet.getDate("Birthday"),
+                                            resultSet.getDate("Startdate"),
+                                            resultSet.getDouble("Salary")
+                );
+                return emp;
+        } 
+            
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if(statement !=null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        //end here
+        return null;
     }
 }

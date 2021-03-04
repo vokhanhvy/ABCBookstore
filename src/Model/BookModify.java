@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectsem2;
+package Model;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -33,8 +33,7 @@ public class BookModify {
         Connection connection = null;
         Statement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "select * from TestBooks";
             statement = connection.createStatement();
@@ -83,8 +82,7 @@ public class BookModify {
         Connection connection = null;
         Statement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "select * from TestImport";
             statement = connection.createStatement();
@@ -156,8 +154,7 @@ public class BookModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "insert into TestImport(BookId, ImportDate , Quantity , Price , Discount) values(?, ?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
@@ -199,8 +196,7 @@ public class BookModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "insert into TestBooks(BookId, BookName , Author , Genre , Price, Publisher, Image, Quantity) values(?, ?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
@@ -240,8 +236,7 @@ public class BookModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "update TestBooks set Quantity=?, Price=? where BookId=?";
             statement = connection.prepareCall(sql);
@@ -274,8 +269,7 @@ public class BookModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "update TestBooks set BookName=?, Author=?, Genre=?, Publisher=?, Image=? where BookId=?";
             statement = connection.prepareCall(sql);
@@ -317,8 +311,7 @@ public class BookModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "select * from TestBooks where concat('.', BookId, '.', BookName, '.', Author, '.', Genre, '.', Publisher, '.', Price, '.') like ?";
             statement = connection.prepareCall(sql);
@@ -365,8 +358,7 @@ public class BookModify {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
-            connection = DriverManager.getConnection(databaseUrl);
+            connection = SqlConnection.connectDB();
             //querry
             String sql = "select * from TestImport where concat('.', BookId, '.', ImportDate, '.', Price, '.') like ?";
             statement = connection.prepareCall(sql);
