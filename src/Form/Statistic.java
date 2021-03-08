@@ -69,7 +69,7 @@ public class Statistic extends javax.swing.JPanel {
 
         lblAdd1.setFont(new java.awt.Font("Trebuchet MS", 1, 28)); // NOI18N
         lblAdd1.setForeground(new java.awt.Color(255, 255, 255));
-        lblAdd1.setText("            REVENUE");
+        lblAdd1.setText("            Revenue");
 
         lblRevenue.setFont(new java.awt.Font("Trebuchet MS", 0, 25)); // NOI18N
         lblRevenue.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,7 +195,7 @@ public class Statistic extends javax.swing.JPanel {
 
         lblAdd6.setFont(new java.awt.Font("Trebuchet MS", 1, 28)); // NOI18N
         lblAdd6.setForeground(new java.awt.Color(255, 255, 255));
-        lblAdd6.setText("          BEST SELLER");
+        lblAdd6.setText("          Best Seller");
 
         lblBestSeller.setFont(new java.awt.Font("Trebuchet MS", 0, 25)); // NOI18N
         lblBestSeller.setForeground(new java.awt.Color(255, 255, 255));

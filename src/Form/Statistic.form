@@ -133,7 +133,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="            REVENUE"/>
+            <Property name="text" type="java.lang.String" value="            Revenue"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblRevenue">
@@ -366,7 +366,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="          BEST SELLER"/>
+            <Property name="text" type="java.lang.String" value="          Best Seller"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblBestSeller">
