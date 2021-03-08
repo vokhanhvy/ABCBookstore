@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 
@@ -269,5 +271,101 @@ public class ReceiptDetailModify {
         }
         //end here
         return rcp;
+    }
+    
+    
+    
+    public static int showBookSale(Date date1, Date date2) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            String sql = "select sum (l.quantity) as revenue from TestReceipt l inner join TestExport r on r.ReceiptId = l.receiptID where Date between ? and ?";
+            statement = connection.prepareCall(sql);
+
+            java.util.Date date1st = date1;
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            String sqlDate1st = dateformat.format(date1st);
+            statement.setString(1, sqlDate1st);
+
+            java.util.Date date2nd = date2;
+            String sqlDate2nd = dateformat.format(date2nd);
+            statement.setString(2, sqlDate2nd);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int value = resultSet.getInt("Revenue");
+
+                return value;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        //end here
+        return 0;
+    }
+    
+    public static String showBestSaler(Date date1, Date date2) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            String sql = "select top(1) bookname from (select BookName, sum(quantity) as newsum from testReceipt l \n"
+                    + "   inner join TestExport r on r.ReceiptId = l.receiptID where Date between ? and ? group by bookName) a \n"
+                    + "   order by newsum desc";
+            statement = connection.prepareCall(sql);
+
+            java.util.Date date1st = date1;
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            String sqlDate1st = dateformat.format(date1st);
+            statement.setString(1, sqlDate1st);
+
+            java.util.Date date2nd = date2;
+            String sqlDate2nd = dateformat.format(date2nd);
+            statement.setString(2, sqlDate2nd);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String value = resultSet.getString("BookName");
+
+                return value;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        //end here
+        return null;
     }
 }

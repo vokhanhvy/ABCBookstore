@@ -265,6 +265,7 @@ public class Login extends javax.swing.JFrame {
             //Home home = new Home();
             //home.show();
             lblError.setText("Login Successfull!");
+            Model.LoginStatus.activeUser = emp; 
             Main main = new Main();
             main.show();
             this.dispose();

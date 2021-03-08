@@ -12,6 +12,7 @@ import Model.Books;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -27,12 +28,15 @@ public class BookAdding extends javax.swing.JFrame {
     /**
      * Creates new form AddBooks
      */
-    public BookAdding(String txt1, String txt2, String txt3) {
-        initComponents();
+    public BookAdding(String txt1, String txt2, String txt3, String txt4, String txt5, String txt6) {
+        initComponents(); 
         setLocationRelativeTo(null);
-        lbl1.setText(txt1);
+        lbl4.setText(txt1);
         lbl2.setText(txt2);
         lbl3.setText(txt3);
+        lblName.setText(txt4);
+        lblAuthor.setText(txt5);
+        lblPublisher.setText(txt6);
     }
     
     public BookAdding() {
@@ -68,11 +72,8 @@ public class BookAdding extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        lbl1 = new javax.swing.JLabel();
+        lblPublisher = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        txtBookName = new javax.swing.JTextField();
-        txtAuthor = new javax.swing.JTextField();
-        txtPublisher = new javax.swing.JTextField();
         btnAddtoStorage = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -81,6 +82,9 @@ public class BookAdding extends javax.swing.JFrame {
         txtGenre = new javax.swing.JComboBox<>();
         lblErr = new javax.swing.JLabel();
         lbl3 = new javax.swing.JLabel();
+        lbl4 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblAuthor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,32 +99,32 @@ public class BookAdding extends javax.swing.JFrame {
         lbl2.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         lbl2.setForeground(new java.awt.Color(204, 204, 204));
         lbl2.setText("label2");
-        jPanel1.add(lbl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, -1, -1));
+        jPanel1.add(lbl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("Name");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+        jLabel4.setText("Name:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Author");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+        jLabel5.setText("Author:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("Genre");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("Publisher");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+        jLabel7.setText("Publisher:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
         jLabel8.setText("Price");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
@@ -132,27 +136,15 @@ public class BookAdding extends javax.swing.JFrame {
         jLabel10.setText("BookId:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        lbl1.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
-        lbl1.setForeground(new java.awt.Color(204, 204, 204));
-        lbl1.setText("label1");
-        jPanel1.add(lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, -1));
+        lblPublisher.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lblPublisher.setForeground(new java.awt.Color(204, 204, 204));
+        lblPublisher.setText("label4");
+        jPanel1.add(lblPublisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 320, -1));
 
         jLabel12.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(204, 204, 204));
         jLabel12.setText("Quantity:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, -1, -1));
-
-        txtBookName.setForeground(new java.awt.Color(204, 204, 204));
-        txtBookName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(txtBookName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 310, -1));
-
-        txtAuthor.setForeground(new java.awt.Color(204, 204, 204));
-        txtAuthor.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(txtAuthor, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 310, -1));
-
-        txtPublisher.setForeground(new java.awt.Color(204, 204, 204));
-        txtPublisher.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(txtPublisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 310, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, -1, -1));
 
         btnAddtoStorage.setBackground(new java.awt.Color(0, 181, 204));
         btnAddtoStorage.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -221,9 +213,9 @@ public class BookAdding extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 470, 140, 160));
 
-        txtGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novel", "Children", "Science", "General Knowledge", "Lifestyle" }));
+        txtGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novel", "Children", "Science-Technology", "Literature-Art", "Lifestyle", "Education", "Politics-Laws", "Culture-Social" }));
         txtGenre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(204, 204, 204)));
-        jPanel1.add(txtGenre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 310, -1));
+        jPanel1.add(txtGenre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 310, -1));
 
         lblErr.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblErr.setForeground(new java.awt.Color(255, 51, 51));
@@ -232,7 +224,22 @@ public class BookAdding extends javax.swing.JFrame {
         lbl3.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         lbl3.setForeground(new java.awt.Color(204, 204, 204));
         lbl3.setText("label1");
-        jPanel1.add(lbl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 310, -1));
+        jPanel1.add(lbl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 310, -1));
+
+        lbl4.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lbl4.setForeground(new java.awt.Color(204, 204, 204));
+        lbl4.setText("label1");
+        jPanel1.add(lbl4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, -1));
+
+        lblName.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lblName.setForeground(new java.awt.Color(204, 204, 204));
+        lblName.setText("label4");
+        jPanel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 320, -1));
+
+        lblAuthor.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
+        lblAuthor.setForeground(new java.awt.Color(204, 204, 204));
+        lblAuthor.setText("label4");
+        jPanel1.add(lblAuthor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 320, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -295,14 +302,14 @@ public class BookAdding extends javax.swing.JFrame {
         String bookid, quantity, name, author, genre, publisher, price;
 
         quantity = lbl2.getText();
-        bookid = lbl1.getText();
-        name = txtBookName.getText();
-        author = txtAuthor.getText();
-        genre = txtGenre.getActionCommand();
-        publisher = txtPublisher.getText();
+        bookid = lbl4.getText();
+        name = lblName.getText();
+        author = lblAuthor.getText();
+        genre = txtGenre.getSelectedItem().toString();
+        publisher = lblPublisher.getText();
         price = lbl3.getText();
         
-        if (bookid == "" || quantity == "" || name == "" || author == "" || genre == "" || publisher == "" || price =="" || bookImage ==null) {
+        if ( genre == "" || bookImage ==null) {
             lblErr.setText("*Please fill in all fields!");
         } else {
                     Integer quantity1 = Integer.parseInt(quantity);
@@ -370,14 +377,14 @@ public class BookAdding extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl3;
+    private javax.swing.JLabel lbl4;
+    private javax.swing.JLabel lblAuthor;
     private javax.swing.JLabel lblErr;
     private javax.swing.JLabel lblImage;
-    private javax.swing.JTextField txtAuthor;
-    private javax.swing.JTextField txtBookName;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPublisher;
     private javax.swing.JComboBox<String> txtGenre;
-    private javax.swing.JTextField txtPublisher;
     // End of variables declaration//GEN-END:variables
 }

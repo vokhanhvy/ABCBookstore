@@ -9,6 +9,7 @@ package projectsem2;
 import Model.Import;
 import Form.BookAdding;
 import Form.*;
+import Model.LoginStatus;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -38,6 +39,7 @@ public class Main extends javax.swing.JFrame {
     private StorageTrackingForm storageTrackingPanel;
     private ReceiptForm receiptPanel;
     private ReceiptTrackingForm receiptTrackingPanel;
+    private Statistic statisticPanel;
     
     
     
@@ -60,8 +62,14 @@ public class Main extends javax.swing.JFrame {
         showbookStoragePanel();
         showimportBookPanel();
         showstorageTrackingPanel();
-        
+        showStatisticPanel();
+        lblLogin.setText("Welcome!! " + LoginStatus.activeUser.getEmpName());
 
+        if (!LoginStatus.activeUser.getPosition().equals("Manager")) {
+            jPanel5.removeAll();
+            jPanel7.removeAll();
+        
+        }
     }
 
     // Call Receipt Panel
@@ -100,7 +108,11 @@ public class Main extends javax.swing.JFrame {
     public void showstorageTrackingPanel() {
         storageTrackingPanel = new StorageTrackingForm();
         pnlBook.addTab("Storage Tracking", storageTrackingPanel);
-
+    }
+    
+    public void showStatisticPanel() {
+        statisticPanel = new Statistic();
+        pnlStatistic.addTab("Statistic", statisticPanel);
     }
     
     
@@ -127,13 +139,14 @@ public class Main extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblLogin = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        lblLogout = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         MyCardLayout = new javax.swing.JPanel();
         Card1 = new javax.swing.JPanel();
         pnlMainReceipt = new javax.swing.JTabbedPane();
@@ -142,6 +155,7 @@ public class Main extends javax.swing.JFrame {
         Card3 = new javax.swing.JPanel();
         pnlEmployee = new javax.swing.JTabbedPane();
         Card4 = new javax.swing.JPanel();
+        pnlStatistic = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1298, 739));
@@ -209,19 +223,17 @@ public class Main extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 25)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
-        jLabel3.setText("  Home");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblLogin.setFont(new java.awt.Font("Trebuchet MS", 2, 18)); // NOI18N
+        lblLogin.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                lblLoginMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                lblLoginMouseExited(evt);
             }
         });
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 72));
+        jPanel3.add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 72));
 
         jPanel5.setBackground(new java.awt.Color(0, 181, 204));
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -248,19 +260,22 @@ public class Main extends javax.swing.JFrame {
         jPanel8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 25)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
-        jLabel8.setText("  Logout");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblLogout.setFont(new java.awt.Font("Trebuchet MS", 0, 25)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
+        lblLogout.setText("  Logout");
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel8MouseEntered(evt);
+                lblLogoutMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel8MouseExited(evt);
+                lblLogoutMouseExited(evt);
             }
         });
-        jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 10, 270, 72));
+        jPanel8.add(lblLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 10, 270, 72));
 
         jPanel7.setBackground(new java.awt.Color(0, 181, 204));
         jPanel7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -283,6 +298,11 @@ public class Main extends javax.swing.JFrame {
         });
         jPanel7.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 72));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/copyright.png"))); // NOI18N
+        jLabel1.setText("Group 3 - Batch 160");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -301,8 +321,11 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel2))
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -325,7 +348,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -342,17 +367,11 @@ public class Main extends javax.swing.JFrame {
         Card1.setLayout(Card1Layout);
         Card1Layout.setHorizontalGroup(
             Card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Card1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlMainReceipt)
-                .addContainerGap())
+            .addComponent(pnlMainReceipt)
         );
         Card1Layout.setVerticalGroup(
             Card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Card1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlMainReceipt, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(pnlMainReceipt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
 
         MyCardLayout.add(Card1, "Card1");
@@ -373,7 +392,7 @@ public class Main extends javax.swing.JFrame {
         );
         Card2Layout.setVerticalGroup(
             Card2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBook, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+            .addComponent(pnlBook, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
 
         MyCardLayout.add(Card2, "Card2");
@@ -388,32 +407,29 @@ public class Main extends javax.swing.JFrame {
         Card3.setLayout(Card3Layout);
         Card3Layout.setHorizontalGroup(
             Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Card3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(pnlEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
         );
         Card3Layout.setVerticalGroup(
             Card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Card3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(pnlEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
 
         MyCardLayout.add(Card3, "Card3");
 
-        Card4.setBackground(new java.awt.Color(102, 153, 255));
+        Card4.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnlStatistic.setForeground(new java.awt.Color(0, 181, 204));
+        pnlStatistic.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
 
         javax.swing.GroupLayout Card4Layout = new javax.swing.GroupLayout(Card4);
         Card4.setLayout(Card4Layout);
         Card4Layout.setHorizontalGroup(
             Card4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 979, Short.MAX_VALUE)
+            .addComponent(pnlStatistic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
         );
         Card4Layout.setVerticalGroup(
             Card4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 723, Short.MAX_VALUE)
+            .addComponent(pnlStatistic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
 
         MyCardLayout.add(Card4, "Card4");
@@ -445,15 +461,15 @@ public class Main extends javax.swing.JFrame {
    
     
     
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+    private void lblLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseEntered
         Color clr = new Color(0, 153, 204);
         jPanel3.setBackground(clr);
-    }//GEN-LAST:event_jLabel3MouseEntered
+    }//GEN-LAST:event_lblLoginMouseEntered
 
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+    private void lblLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseExited
        Color clr = new Color(0, 181, 204);
         jPanel3.setBackground(clr);
-    }//GEN-LAST:event_jLabel3MouseExited
+    }//GEN-LAST:event_lblLoginMouseExited
 
     private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
         Color clr = new Color(0, 153, 204);
@@ -495,15 +511,15 @@ public class Main extends javax.swing.JFrame {
         jPanel7.setBackground(clr);
     }//GEN-LAST:event_jLabel7MouseExited
 
-    private void jLabel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseEntered
+    private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseEntered
         Color clr = new Color(0, 153, 204);
         jPanel8.setBackground(clr);
-    }//GEN-LAST:event_jLabel8MouseEntered
+    }//GEN-LAST:event_lblLogoutMouseEntered
 
-    private void jLabel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseExited
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseExited
         Color clr = new Color(0, 181, 204);
         jPanel8.setBackground(clr);
-    }//GEN-LAST:event_jLabel8MouseExited
+    }//GEN-LAST:event_lblLogoutMouseExited
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         cardlayout.show(MyCardLayout, "Card1");
@@ -520,6 +536,16 @@ public class Main extends javax.swing.JFrame {
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         cardlayout.show(MyCardLayout, "Card4");
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+        int option = JOptionPane.showConfirmDialog(this, "Do you want to Log out?");
+        
+        if (option == 0) {
+            Login login = new Login();
+            login.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_lblLogoutMouseClicked
 
    
 
@@ -594,13 +620,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel Card3;
     private javax.swing.JPanel Card4;
     private javax.swing.JPanel MyCardLayout;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -610,8 +635,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblLogout;
     private javax.swing.JTabbedPane pnlBook;
     private javax.swing.JTabbedPane pnlEmployee;
     private javax.swing.JTabbedPane pnlMainReceipt;
+    private javax.swing.JTabbedPane pnlStatistic;
     // End of variables declaration//GEN-END:variables
 }

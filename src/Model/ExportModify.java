@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -169,5 +170,189 @@ public class ExportModify {
         }
         //end here
         return null;
+    }
+    
+    public static ArrayList findAllExport() {
+        ArrayList<Export> exportList = new ArrayList<>();
+        
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            //querry
+            String sql = "select * from TestExport";
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                Export exp;
+                exp = new Export(resultSet.getString("ReceiptId"),
+                        resultSet.getDate("Date"),
+                        resultSet.getLong("Total"),
+                        resultSet.getInt("EmpId")
+                        
+                );
+                exportList.add(exp);
+        } 
+             
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if(statement !=null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        //end here
+        return exportList;
+    }
+    
+    
+    public static ArrayList searchExportTracking(String txt) {
+        ArrayList<Export> exportList = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            //querry
+            String sql = "select * from TestExport where concat('.', ReceiptId, '.', Date, '.', EmpId, '.') like ?";
+            statement = connection.prepareCall(sql);
+            statement.setString(1, "%.%" + txt + "%.%");
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Export imp = new Export(resultSet.getString("ReceiptId"),
+                        resultSet.getDate("Date"),
+                        resultSet.getLong("Total"),
+                        resultSet.getInt("EmpId")
+                        
+                );
+                exportList.add(imp);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        //end here
+        return exportList;
+    }
+    
+    public static int showRevenue(Date date1, Date date2) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            String sql = "select sum (total) as revenue from TestExport where Date between ? and ?";
+            statement = connection.prepareCall(sql);
+            
+            
+            java.util.Date date1st = date1;
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            String sqlDate1st = dateformat.format(date1st);          
+            statement.setString(1, sqlDate1st);
+            
+            java.util.Date date2nd = date2;
+            String sqlDate2nd = dateformat.format(date2nd);          
+            statement.setString(2, sqlDate2nd);
+            
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int value = resultSet.getInt("Revenue");
+                
+                return value;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        //end here
+        return 0;
+    }
+    
+    public static int showCustomer(Date date1, Date date2) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            String sql = "select count (ReceiptId) as revenue from TestExport where Date between ? and ?";
+            statement = connection.prepareCall(sql);
+            
+            
+            java.util.Date date1st = date1;
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            String sqlDate1st = dateformat.format(date1st);          
+            statement.setString(1, sqlDate1st);
+            
+            java.util.Date date2nd = date2;
+            String sqlDate2nd = dateformat.format(date2nd);          
+            statement.setString(2, sqlDate2nd);
+            
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int value = resultSet.getInt("Revenue");
+                
+                return value;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        //end here
+        return 0;
     }
 }

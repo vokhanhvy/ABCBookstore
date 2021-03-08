@@ -366,9 +366,11 @@ public class BookModify {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Import imp = new Import(resultSet.getString("BookId"),
+                Import imp = new Import(resultSet.getInt("Quantity"),
+                        resultSet.getString("BookId"),
                         resultSet.getDate("ImportDate"),
-                        resultSet.getLong("Price")
+                        resultSet.getLong("Price"),
+                        resultSet.getFloat("Discount")   
                 );
                 importList.add(imp);
             }
@@ -392,5 +394,52 @@ public class BookModify {
         }
         //end here
         return importList;
+    }
+    
+    public static Books selectTop1Book() {
+        //Books book = new Books();
+
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = SqlConnection.connectDB();
+            //querry
+            String sql = "select top(1) * from TestBooks order by BookId desc";
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+
+                Books book = new Books(resultSet.getString("BookId"),
+                        resultSet.getString("BookName"),
+                        resultSet.getString("Author"),
+                        resultSet.getString("Genre"),
+                        resultSet.getString("Publisher"),
+                        resultSet.getInt("Quantity"),
+                        resultSet.getLong("Price"),
+                        resultSet.getBytes("Image")
+                );
+                return book;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        //end here
+        return null;
     }
 }

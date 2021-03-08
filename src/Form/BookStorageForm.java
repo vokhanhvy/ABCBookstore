@@ -89,6 +89,18 @@ public class BookStorageForm extends javax.swing.JPanel {
         btnEditExit = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
         tblBook.setAutoCreateRowSorter(true);
@@ -233,7 +245,7 @@ public class BookStorageForm extends javax.swing.JPanel {
         jLabel24.setForeground(new java.awt.Color(204, 204, 204));
         jLabel24.setText("Author");
 
-        txtGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novel", "Children", "Science", "General Knowledge", "Lifestyle" }));
+        txtGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novel", "Children", "Science-Technology", "Literature-Art", "Lifestyle", "Education", "Politics-Laws", "Culture-Social" }));
         txtGenre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(204, 204, 204)));
 
         jLabel25.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -602,7 +614,7 @@ public class BookStorageForm extends javax.swing.JPanel {
         bookName = txtBookName.getText();
         author = txtAuthor.getText();
         publisher = txtPublisher.getText();
-        genre = txtGenre.getActionCommand();
+        genre = txtGenre.getSelectedItem().toString();
         bookId = jLabel26.getText();
         ImageIcon icon = (ImageIcon) lblEditImg.getIcon();
         Image img = icon.getImage();
@@ -635,6 +647,14 @@ public class BookStorageForm extends javax.swing.JPanel {
     private void btnEditExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditExitMouseClicked
         PnlEditBook.setVisible(false);
     }//GEN-LAST:event_btnEditExitMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        showBook();
+    }//GEN-LAST:event_formMouseClicked
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        showBook();
+    }//GEN-LAST:event_formFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

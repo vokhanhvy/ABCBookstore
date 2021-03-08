@@ -11,6 +11,7 @@ import Model.ReceiptDetail;
 import Model.ReceiptDetailModify;
 import Model.Export;
 import Model.ExportModify;
+import Model.LoginStatus;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -481,7 +482,7 @@ public class ReceiptForm extends javax.swing.JPanel {
                     exp1.setReceiptId(lblReceiptId.getText());
                     exp1.setDate(today);
                     exp1.setTotal(newTotal);
-                    exp1.setEmpId(0); // NOT CODE YET!!!!!
+                    exp1.setEmpId(LoginStatus.activeUser.getEmpId()); 
                     ExportModify.updateExport(exp1);
                     
                 } else {
@@ -514,6 +515,7 @@ public class ReceiptForm extends javax.swing.JPanel {
     
     private void lblDeleteReceiptRowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteReceiptRowMouseClicked
         int selectedIndex = tblReceipt.getSelectedRow();
+        if (selectedIndex >=0) {
         String bookId = tblReceipt.getModel().getValueAt(selectedIndex, 0).toString();
         String total = tblReceipt.getModel().getValueAt(selectedIndex, 3).toString();
         
@@ -533,8 +535,9 @@ public class ReceiptForm extends javax.swing.JPanel {
             exp.setReceiptId(lblReceiptId.getText());
             exp.setDate(today);
             exp.setTotal(newTotal);
-            exp.setEmpId(0); // NOT CODE YET!!!!!
+            exp.setEmpId(LoginStatus.activeUser.getEmpId()); 
             ExportModify.updateExport(exp);
+        }
         }
     }//GEN-LAST:event_lblDeleteReceiptRowMouseClicked
 

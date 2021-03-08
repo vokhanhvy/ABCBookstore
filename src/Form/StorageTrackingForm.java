@@ -62,6 +62,11 @@ public class StorageTrackingForm extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel13MouseClicked(evt);
+            }
+        });
 
         tblStorageTracking.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         tblStorageTracking.setForeground(new java.awt.Color(153, 153, 153));
@@ -189,8 +194,9 @@ public class StorageTrackingForm extends javax.swing.JPanel {
 
             tableModelImport.setRowCount(0);
             importList.forEach((b) -> {
-                tableModelImport.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/b.getBookid().trim(), b.getDate(), b.getQuantity()
-                    , b.getPrice(), b.getDiscount()});
+                tableModelImport.addRow(new Object[]{/*tableModel.getRowCount() + 1 ,*/b.getBookid().trim(), b.getDate(), b.getQuantity(),
+                     b.getPrice(), b.getDiscount()});
+                
         });
         } else {
             showStorageTracking();
@@ -219,6 +225,10 @@ public class StorageTrackingForm extends javax.swing.JPanel {
     private void lblStrgTrackResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrgTrackResetMouseExited
         HoverEffect.btnSearchHoverExt(btnStrgTrackSearch);
     }//GEN-LAST:event_lblStrgTrackResetMouseExited
+
+    private void jPanel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel13MouseClicked
+        showStorageTracking();
+    }//GEN-LAST:event_jPanel13MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
