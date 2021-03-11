@@ -29,9 +29,10 @@ public class ReceiptDetailModify {
         PreparedStatement statement = null;
         try {
             connection = SqlConnection.connectDB();
-            String sql = "select * from TestBooks where BookId = ?";
+            String sql = "select * from Books where BookId = ? or BookName = ?";
             statement = connection.prepareCall(sql);
-            statement.setString(1, txt);           
+            statement.setString(1, txt);      
+            statement.setString(2, txt);    
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
                 Model.Books bk = new Model.Books(resultSet.getString("BookId"),
@@ -76,7 +77,7 @@ public class ReceiptDetailModify {
         try {
             connection = SqlConnection.connectDB();
             //query
-            String sql = "insert into TestReceipt(ReceiptId, BookId , BookName, Quantity , Price , EmpId, Total) values(?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into Receipt(ReceiptId, BookId , BookName, Quantity , Price , EmpId, Total) values(?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
             statement.setString(1, rcp.getReceiptId());
             statement.setString(2, rcp.getBookId());
@@ -113,7 +114,7 @@ public class ReceiptDetailModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "update TestReceipt set Quantity=?, Total=? where ReceiptId=? and BookId=?";
+            String sql = "update Receipt set Quantity=?, Total=? where ReceiptId=? and BookId=?";
             statement = connection.prepareCall(sql);
             statement.setInt(1, rcp.getQuantity());
             statement.setLong(2, rcp.getTotal());
@@ -152,7 +153,7 @@ public class ReceiptDetailModify {
             connection = SqlConnection.connectDB();
             //querry
 
-            String sql = "delete from TestReceipt where ReceiptId=? and BookName=?";
+            String sql = "delete from Receipt where ReceiptId=? and BookName=?";
 
             statement = connection.prepareCall(sql);
             statement.setString(1, receipId);
@@ -186,7 +187,7 @@ public class ReceiptDetailModify {
         PreparedStatement statement = null;
         try {
             connection = SqlConnection.connectDB();
-            String sql = "select * from TestReceipt where ReceiptId = ? and BookId = ?";
+            String sql = "select * from Receipt where ReceiptId = ? and BookId = ?";
             statement = connection.prepareCall(sql);
             statement.setString(1, receiptid);
             statement.setString(2, bookid);
@@ -234,7 +235,7 @@ public class ReceiptDetailModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from TestReceipt where ReceiptId = ?";
+            String sql = "select * from Receipt where ReceiptId = ?";
             statement = connection.prepareCall(sql);
             statement.setString(1, receiptId);
             ResultSet resultSet = statement.executeQuery();
@@ -280,7 +281,7 @@ public class ReceiptDetailModify {
         PreparedStatement statement = null;
         try {
             connection = SqlConnection.connectDB();
-            String sql = "select sum (l.quantity) as revenue from TestReceipt l inner join TestExport r on r.ReceiptId = l.receiptID where Date between ? and ?";
+            String sql = "select sum (l.quantity) as revenue from Receipt l inner join Export r on r.ReceiptId = l.receiptID where Date between ? and ?";
             statement = connection.prepareCall(sql);
 
             java.util.Date date1st = date1;
@@ -326,8 +327,8 @@ public class ReceiptDetailModify {
         PreparedStatement statement = null;
         try {
             connection = SqlConnection.connectDB();
-            String sql = "select top(1) bookname from (select BookName, sum(quantity) as newsum from testReceipt l \n"
-                    + "   inner join TestExport r on r.ReceiptId = l.receiptID where Date between ? and ? group by bookName) a \n"
+            String sql = "select top(1) bookname from (select BookName, sum(quantity) as newsum from Receipt l \n"
+                    + "   inner join Export r on r.ReceiptId = l.receiptID where Date between ? and ? group by bookName) a \n"
                     + "   order by newsum desc";
             statement = connection.prepareCall(sql);
 

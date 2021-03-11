@@ -61,6 +61,11 @@ public class ReceiptTrackingForm extends javax.swing.JPanel {
         tblExportTracking = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         txtSearchStrgTrack.setFont(new java.awt.Font("Trebuchet MS", 0, 21)); // NOI18N
         txtSearchStrgTrack.setForeground(new java.awt.Color(204, 204, 204));
@@ -205,6 +210,10 @@ public class ReceiptTrackingForm extends javax.swing.JPanel {
     private void lblStrgTrackResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrgTrackResetMouseExited
         HoverEffect.btnSearchHoverExt(btnStrgTrackSearch);
     }//GEN-LAST:event_lblStrgTrackResetMouseExited
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        showExportTracking();
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -28,7 +28,7 @@ public class EmployeeModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from Test_Employees";
+            String sql = "select * from Employees";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
@@ -40,7 +40,7 @@ public class EmployeeModify {
                                             resultSet.getString("Position"),
                                             resultSet.getDate("Birthday"),
                                             resultSet.getDate("Startdate"),
-                                            resultSet.getDouble("Salary")
+                                            resultSet.getLong("Salary")
                 );
                 employeeList.add(emp);
         } 
@@ -74,7 +74,7 @@ public class EmployeeModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "insert into Test_Employees(EmpName, UserName, PassWord, Address, Birthday, Startdate, Position, Salary) values(?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into Employees(EmpName, UserName, PassWord, Address, Birthday, Startdate, Position, Salary) values(?, ?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
             statement.setString(1, emp.getEmpName());
             statement.setString(2, emp.getUserName());
@@ -123,7 +123,7 @@ public class EmployeeModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "update Test_Employees set EmpName=?, UserName=?, PassWord=?, Address=?, Birthday=?, Startdate=?, Position=?, Salary=? where EmpId=?";
+            String sql = "update Employees set EmpName=?, UserName=?, PassWord=?, Address=?, Birthday=?, Startdate=?, Position=?, Salary=? where EmpId=?";
             statement = connection.prepareCall(sql);
             statement.setString(1, emp.getEmpName());
             statement.setString(2, emp.getUserName());
@@ -173,7 +173,7 @@ public class EmployeeModify {
             connection = SqlConnection.connectDB();
             //querry
             
-            String sql = "delete from Test_Employees where EmpId=?";
+            String sql = "delete from Employees where EmpId=?";
             
             statement = connection.prepareCall(sql);
             statement.setInt(1, id);
@@ -209,7 +209,7 @@ public class EmployeeModify {
             connection = SqlConnection.connectDB();
             //querry
 
-            String sql = "declare @max int; select @max = max(EmpId) from Test_Employees;dbcc checkident(Test_Employees, reseed, @max)";
+            String sql = "declare @max int; select @max = max(EmpId) from Employees;dbcc checkident(Employees, reseed, @max)";
 
             statement = connection.prepareCall(sql);
 
@@ -243,7 +243,7 @@ public class EmployeeModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from Test_Employees where concat('.', EmpName, '.', Address, '.', Position, '.') like ?";
+            String sql = "select * from Employees where concat('.', EmpName, '.', Address, '.', Position, '.') like ?";
             statement = connection.prepareCall(sql);
             statement.setString(1, "%.%" + txt +"%.%");
             
@@ -257,7 +257,7 @@ public class EmployeeModify {
                                             resultSet.getString("Position"),
                                             resultSet.getDate("Birthday"),
                                             resultSet.getDate("Startdate"),
-                                            resultSet.getDouble("Salary")
+                                            resultSet.getLong("Salary")
                 );
                 employeeList.add(emp);
         } 
@@ -293,7 +293,7 @@ public class EmployeeModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from Test_Employees where UserName=? and PassWord=?";
+            String sql = "select * from Employees where UserName=? and PassWord=?";
             statement = connection.prepareCall(sql);
             
             statement.setString(1, user);
@@ -308,7 +308,7 @@ public class EmployeeModify {
                                             resultSet.getString("Position"),
                                             resultSet.getDate("Birthday"),
                                             resultSet.getDate("Startdate"),
-                                            resultSet.getDouble("Salary")
+                                            resultSet.getLong("Salary")
                 );
                 return emp;
         } 

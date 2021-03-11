@@ -35,7 +35,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from TestBooks";
+            String sql = "select * from Books";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
@@ -84,7 +84,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from TestImport";
+            String sql = "select * from Import";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
@@ -156,7 +156,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "insert into TestImport(BookId, ImportDate , Quantity , Price , Discount) values(?, ?, ?, ?, ?)";
+            String sql = "insert into Import(BookId, ImportDate , Quantity , Price , Discount) values(?, ?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
             statement.setString(1, imp.getBookid());
 
@@ -198,7 +198,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "insert into TestBooks(BookId, BookName , Author , Genre , Price, Publisher, Image, Quantity) values(?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into Books(BookId, BookName , Author , Genre , Price, Publisher, Image, Quantity) values(?, ?, ?, ?, ?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
             statement.setString(1, bk.getBookId());
             statement.setString(2, bk.getBookName());
@@ -238,7 +238,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "update TestBooks set Quantity=?, Price=? where BookId=?";
+            String sql = "update Books set Quantity=?, Price=? where BookId=?";
             statement = connection.prepareCall(sql);
             statement.setInt(1, bk.getQuantity());
             statement.setLong(2, bk.getPrice());
@@ -271,7 +271,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "update TestBooks set BookName=?, Author=?, Genre=?, Publisher=?, Image=? where BookId=?";
+            String sql = "update Books set BookName=?, Author=?, Genre=?, Publisher=?, Image=? where BookId=?";
             statement = connection.prepareCall(sql);
             statement.setString(1, bk.getBookName());
             statement.setString(2, bk.getAuthor());
@@ -313,7 +313,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from TestBooks where concat('.', BookId, '.', BookName, '.', Author, '.', Genre, '.', Publisher, '.', Price, '.') like ?";
+            String sql = "select * from Books where concat('.', BookId, '.', BookName, '.', Author, '.', Genre, '.', Publisher, '.', Price, '.') like ?";
             statement = connection.prepareCall(sql);
             statement.setString(1, "%.%" + txt + "%.%");
 
@@ -360,7 +360,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from TestImport where concat('.', BookId, '.', ImportDate, '.', Price, '.') like ?";
+            String sql = "select * from Import where concat('.', BookId, '.', ImportDate, '.', Price, '.') like ?";
             statement = connection.prepareCall(sql);
             statement.setString(1, "%.%" + txt + "%.%");
 
@@ -404,7 +404,7 @@ public class BookModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select top(1) * from TestBooks order by BookId desc";
+            String sql = "select top(1) * from Books order by BookId desc";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {

@@ -25,7 +25,7 @@ public class ExportModify {
         try {
             connection = SqlConnection.connectDB();
             //query
-            String sql = "insert into TestExport(ReceiptId) values(?)";
+            String sql = "insert into Export(ReceiptId) values(?)";
             statement = connection.prepareCall(sql);
             statement.setString(1, receiptId);
             
@@ -58,7 +58,7 @@ public class ExportModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "update TestExport set Date=?, Total=?, EmpId=? where ReceiptId=? ";
+            String sql = "update Export set Date=?, Total=?, EmpId=? where ReceiptId=? ";
             statement = connection.prepareCall(sql);
             
             java.util.Date date = exp.getDate();
@@ -97,7 +97,7 @@ public class ExportModify {
         PreparedStatement statement = null;
         try {
             connection = SqlConnection.connectDB();
-            String sql = "select * from TestExport where ReceiptId = ? ";
+            String sql = "select * from Export where ReceiptId = ? ";
             statement = connection.prepareCall(sql);
             statement.setString(1, receiptid);
             
@@ -139,7 +139,7 @@ public class ExportModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select top(1) ReceiptId from TestExport where Total != 0 order by ReceiptId desc";
+            String sql = "select top(1) ReceiptId from Export where Total != 0 order by ReceiptId desc";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
@@ -180,7 +180,7 @@ public class ExportModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from TestExport";
+            String sql = "select * from Export";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
@@ -226,7 +226,7 @@ public class ExportModify {
         try {
             connection = SqlConnection.connectDB();
             //querry
-            String sql = "select * from TestExport where concat('.', ReceiptId, '.', Date, '.', EmpId, '.') like ?";
+            String sql = "select * from Export where concat('.', ReceiptId, '.', Date, '.', EmpId, '.') like ?";
             statement = connection.prepareCall(sql);
             statement.setString(1, "%.%" + txt + "%.%");
 
@@ -267,7 +267,7 @@ public class ExportModify {
         PreparedStatement statement = null;
         try {
             connection = SqlConnection.connectDB();
-            String sql = "select sum (total) as revenue from TestExport where Date between ? and ?";
+            String sql = "select sum(total) as revenue from Export where Date between ? and ? ";
             statement = connection.prepareCall(sql);
             
             
@@ -314,7 +314,7 @@ public class ExportModify {
         PreparedStatement statement = null;
         try {
             connection = SqlConnection.connectDB();
-            String sql = "select count (ReceiptId) as revenue from TestExport where Date between ? and ?";
+            String sql = "select count(ReceiptId) as revenue from Export where Date between ? and ?";
             statement = connection.prepareCall(sql);
             
             

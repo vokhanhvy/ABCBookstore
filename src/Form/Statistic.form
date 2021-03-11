@@ -155,9 +155,6 @@
           <Color blue="cc" green="b5" red="0" type="rgb"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel9MouseEntered"/>
-      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="false"/>
@@ -252,7 +249,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="  Number of Book Sale"/>
+            <Property name="text" type="java.lang.String" value="   Number of Book Sale"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblBookSale">

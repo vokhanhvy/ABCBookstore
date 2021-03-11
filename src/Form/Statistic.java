@@ -97,11 +97,6 @@ public class Statistic extends javax.swing.JPanel {
         );
 
         jPanel9.setBackground(new java.awt.Color(0, 181, 204));
-        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel9MouseEntered(evt);
-            }
-        });
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCheck.setFont(new java.awt.Font("Trebuchet MS", 0, 25)); // NOI18N
@@ -133,7 +128,7 @@ public class Statistic extends javax.swing.JPanel {
 
         lblAdd4.setFont(new java.awt.Font("Trebuchet MS", 1, 28)); // NOI18N
         lblAdd4.setForeground(new java.awt.Color(255, 255, 255));
-        lblAdd4.setText("  Number of Book Sale");
+        lblAdd4.setText("   Number of Book Sale");
 
         lblBookSale.setFont(new java.awt.Font("Trebuchet MS", 0, 25)); // NOI18N
         lblBookSale.setForeground(new java.awt.Color(255, 255, 255));
@@ -289,13 +284,9 @@ public class Statistic extends javax.swing.JPanel {
         jPanel9.setBackground(clr);
     }//GEN-LAST:event_btnCheckMouseExited
 
-    private void jPanel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel9MouseEntered
-
     private void btnCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckMouseClicked
         date1 = jDateChooser1.getDate();
-        date2 = jDateChooser1.getDate();
+        date2 = jDateChooser2.getDate();
         if (date1 != null & date2 != null) {
             int revenue = ExportModify.showRevenue(date1, date2);
             int bookSale = ReceiptDetailModify.showBookSale(date1, date2);
@@ -305,8 +296,8 @@ public class Statistic extends javax.swing.JPanel {
             lblBookSale.setText(Integer.toString(bookSale));
             lblCustomer.setText(Integer.toString(customer));
             lblBestSeller.setText(bestSeller);
-            if (!lblRevenue.getText().equals("0") || !lblBookSale.getText().equals("0") ||
-                 !lblCustomer.getText().equals("0")   ) {
+            
+            if (!lblRevenue.getText().equals("0")) {
                 pnlRevenue.setVisible(true);
                 pnlBookSale.setVisible(true);
                 pnlCustomer.setVisible(true);

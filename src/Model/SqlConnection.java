@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class SqlConnection {
     public static Connection connectDB() throws SQLException {
-    String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestAbcBookstore;username=sa;password=12345678";
+    String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=AbcBookstore;username=sa;password=12345678";
     Connection connection = DriverManager.getConnection(databaseUrl);
     return connection;
     }

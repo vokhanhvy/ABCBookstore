@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projectsem2;
+package Form;
 
 
 import Model.Import;
@@ -158,7 +158,6 @@ public class Main extends javax.swing.JFrame {
         pnlStatistic = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1298, 739));
 
         jPanel1.setBackground(new java.awt.Color(0, 181, 204));
 

@@ -5,12 +5,14 @@
  */
 package Form;
 
+import Model.BookModify;
 import Model.ExportModify;
 import Model.Validation;
 import Model.ReceiptDetail;
 import Model.ReceiptDetailModify;
 import Model.Export;
 import Model.ExportModify;
+
 import Model.LoginStatus;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -162,6 +164,12 @@ public class ReceiptForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAddReceiptMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAddReceiptMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAddReceiptMouseExited(evt);
+            }
         });
 
         javax.swing.GroupLayout btnAddLayout = new javax.swing.GroupLayout(btnAdd);
@@ -187,6 +195,12 @@ public class ReceiptForm extends javax.swing.JPanel {
         lblDeleteReceiptRow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblDeleteReceiptRowMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblDeleteReceiptRowMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblDeleteReceiptRowMouseExited(evt);
             }
         });
 
@@ -253,6 +267,12 @@ public class ReceiptForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCheckoutMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCheckoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCheckoutMouseExited(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -280,6 +300,12 @@ public class ReceiptForm extends javax.swing.JPanel {
         lblPrint.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPrintMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblPrintMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblPrintMouseExited(evt);
             }
         });
 
@@ -430,26 +456,25 @@ public class ReceiptForm extends javax.swing.JPanel {
 
     //Add Receipt Detail
     private void lblAddReceiptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddReceiptMouseClicked
-        
+
         // Create new ReceiptId in table Export
         Export exp = ExportModify.searchExportReceiptId(lblReceiptId.getText());
-        if (exp ==null) {
+        if (exp == null) {
             ExportModify.insertToExport(lblReceiptId.getText());
         }
-        
+
         String bookId, quantity, price;
         bookId = txtBookId.getText();
         quantity = txtQuantity.getText();
-        
+
         lblError.setText("");
-        
+
         if (bookId.equals("") || quantity.equals("")) {
             lblError.setText("*Please fill in BookId and Quantity");
         } else if (lblError1.getText().equals("")) {
-            
+
             int quantityNum = Integer.parseInt(quantity);
-            
-            
+
             Model.Books bk = Model.ReceiptDetailModify.searchBookId(bookId);
             if (bk == null) {
                 Validation.Notify(this, "No BookId found!", "Error");
@@ -457,56 +482,78 @@ public class ReceiptForm extends javax.swing.JPanel {
                 Model.ReceiptDetail rcp1 = Model.ReceiptDetailModify.searchReceipIdBookId(lblReceiptId.getText(), bookId);
                 if (rcp1 == null) {
 
-                    tableModelReceipt.addRow(new Object[]{/*tableModelReceipt.getRowCount() + 1,*/bk.getBookName(), quantity,
-                         bk.getPrice(), quantityNum * bk.getPrice() });
+                    int checkquantity = bk.getQuantity() - quantityNum;
 
-                    Model.ReceiptDetail rcp = new Model.ReceiptDetail();
-                    rcp.setReceiptId(lblReceiptId.getText());
-                    rcp.setBookName(bk.getBookName());
-                    rcp.setBookId(bookId);
-                    rcp.setQuantity(quantityNum);
-                    rcp.setPrice(bk.getPrice());
-                    rcp.setEmpId(0);  // NOT CODE YET!!!!!!!
-                    rcp.setTotal(quantityNum * bk.getPrice());
-                    
-                    Long currentTotal = Long.parseLong(lblTotal.getText());
-                    Long newTotal = rcp.getTotal() + currentTotal;
-                    String newTotal1 = Long.toString(newTotal);
-                    lblTotal.setText(newTotal1);
-                    
-                    ReceiptDetailModify.insertToReceiptDetail(rcp);
-                    
-                    //UPDATE EXPORT TABLE
-                    //exp.setReceiptId(lblReceiptId.getText());
-                    Export exp1 = new Export ();
-                    exp1.setReceiptId(lblReceiptId.getText());
-                    exp1.setDate(today);
-                    exp1.setTotal(newTotal);
-                    exp1.setEmpId(LoginStatus.activeUser.getEmpId()); 
-                    ExportModify.updateExport(exp1);
-                    
+                    if (checkquantity < 0) {
+                        Validation.Notify(this, "Quantity in Storage is insufficient!", "Message");
+                    } else {
+
+                        tableModelReceipt.addRow(new Object[]{/*tableModelReceipt.getRowCount() + 1,*/bk.getBookName(), quantity,
+                            bk.getPrice(), quantityNum * bk.getPrice()});
+
+                        Model.ReceiptDetail rcp = new Model.ReceiptDetail();
+                        rcp.setReceiptId(lblReceiptId.getText());
+                        rcp.setBookName(bk.getBookName());
+                        rcp.setBookId(bookId);
+                        rcp.setQuantity(quantityNum);
+                        rcp.setPrice(bk.getPrice());
+                        rcp.setEmpId(0);  // NOT CODE YET!!!!!!!
+                        rcp.setTotal(quantityNum * bk.getPrice());
+
+                        Long currentTotal = Long.parseLong(lblTotal.getText());
+                        Long newTotal = rcp.getTotal() + currentTotal;
+                        String newTotal1 = Long.toString(newTotal);
+                        lblTotal.setText(newTotal1);
+
+                        ReceiptDetailModify.insertToReceiptDetail(rcp);
+
+                        //UPDATE EXPORT TABLE
+                        //exp.setReceiptId(lblReceiptId.getText());
+                        Export exp1 = new Export();
+                        exp1.setReceiptId(lblReceiptId.getText());
+                        exp1.setDate(today);
+                        exp1.setTotal(newTotal);
+                        exp1.setEmpId(LoginStatus.activeUser.getEmpId());
+                        ExportModify.updateExport(exp1);
+
+                        //UPDATE BOOKS TABLE (QUANTITY OF BOOK)
+                        bk.setQuantity(checkquantity);
+                        BookModify.updateOfBookPrice(bk);
+                    }
+
                 } else {
-                    int newQuantity = rcp1.getQuantity();
-                    rcp1.setQuantity(quantityNum + newQuantity);
-                    
-                    long updateTotal = rcp1.getTotal();
-                    rcp1.setTotal(updateTotal + quantityNum * bk.getPrice() );
-                    
-                    Long currentTotal = Long.parseLong(lblTotal.getText());
-                    Long newTotal = quantityNum * rcp1.getPrice() + currentTotal;
-                    String newTotal1 = Long.toString(newTotal);
-                    lblTotal.setText(newTotal1);
-                    
-                    ReceiptDetailModify.updateReceiptDetail(rcp1);
-                    showReceiptDetail(lblReceiptId.getText());
-                    
-                    //UPDATE EXPORT TABLE
-                    Export exp1 = new Export ();
-                    exp1.setReceiptId(lblReceiptId.getText());
-                    exp1.setDate(today);
-                    exp1.setTotal(newTotal);
-                    exp1.setEmpId(0); // NOT CODE YET!!!!!
-                    ExportModify.updateExport(exp1);
+
+                    int checkquantity = bk.getQuantity() - quantityNum;
+
+                    if (checkquantity < 0) {
+                        Validation.Notify(this, "Quantity in Storage is insufficient!", "Message");
+                    } else {
+                        int newQuantity = rcp1.getQuantity();
+                        rcp1.setQuantity(quantityNum + newQuantity);
+
+                        long updateTotal = rcp1.getTotal();
+                        rcp1.setTotal(updateTotal + quantityNum * bk.getPrice());
+
+                        Long currentTotal = Long.parseLong(lblTotal.getText());
+                        Long newTotal = quantityNum * rcp1.getPrice() + currentTotal;
+                        String newTotal1 = Long.toString(newTotal);
+                        lblTotal.setText(newTotal1);
+
+                        ReceiptDetailModify.updateReceiptDetail(rcp1);
+                        showReceiptDetail(lblReceiptId.getText());
+
+                        //UPDATE EXPORT TABLE
+                        Export exp1 = new Export();
+                        exp1.setReceiptId(lblReceiptId.getText());
+                        exp1.setDate(today);
+                        exp1.setTotal(newTotal);
+                        exp1.setEmpId(0); // NOT CODE YET!!!!!
+                        ExportModify.updateExport(exp1);
+
+                        //UPDATE BOOKS TABLE (QUANTITY OF BOOK)
+                        bk.setQuantity(checkquantity);
+                        BookModify.updateOfBookPrice(bk);
+                    }
                 }
             }
         }
@@ -515,29 +562,38 @@ public class ReceiptForm extends javax.swing.JPanel {
     
     private void lblDeleteReceiptRowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteReceiptRowMouseClicked
         int selectedIndex = tblReceipt.getSelectedRow();
-        if (selectedIndex >=0) {
-        String bookId = tblReceipt.getModel().getValueAt(selectedIndex, 0).toString();
-        String total = tblReceipt.getModel().getValueAt(selectedIndex, 3).toString();
-        
-        Long currentTotal = Long.parseLong(lblTotal.getText());
-        Long newTotal = currentTotal - Long.parseLong(total);
-        String newTotal1 = Long.toString(newTotal);
-        
-        int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this?");
-        
-        if (option == 0) {
-            ReceiptDetailModify.deleteReceipDetailRow(lblReceiptId.getText(), bookId);
-            showReceiptDetail(lblReceiptId.getText());
-            lblTotal.setText(newTotal1);
+        if (selectedIndex >= 0) {
+            String bookId = tblReceipt.getModel().getValueAt(selectedIndex, 0).toString();
+            String total = tblReceipt.getModel().getValueAt(selectedIndex, 3).toString();
+            String quantity = tblReceipt.getModel().getValueAt(selectedIndex, 1).toString();
 
-            //UPDATE EXPORT TABLE
-            Export exp = new Export();
-            exp.setReceiptId(lblReceiptId.getText());
-            exp.setDate(today);
-            exp.setTotal(newTotal);
-            exp.setEmpId(LoginStatus.activeUser.getEmpId()); 
-            ExportModify.updateExport(exp);
-        }
+            int quantityNum = Integer.parseInt(quantity);
+            Long currentTotal = Long.parseLong(lblTotal.getText());
+            Long newTotal = currentTotal - Long.parseLong(total);
+            String newTotal1 = Long.toString(newTotal);
+
+            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this?");
+
+            if (option == 0) {
+                ReceiptDetailModify.deleteReceipDetailRow(lblReceiptId.getText(), bookId);
+                showReceiptDetail(lblReceiptId.getText());
+                lblTotal.setText(newTotal1);
+
+                //UPDATE EXPORT TABLE
+                Export exp = new Export();
+                exp.setReceiptId(lblReceiptId.getText());
+                exp.setDate(today);
+                exp.setTotal(newTotal);
+                exp.setEmpId(LoginStatus.activeUser.getEmpId());
+                ExportModify.updateExport(exp);
+
+                //UPDATE BOOKS TABLE (QUANTITY OF BOOK)
+                Model.Books bk = Model.ReceiptDetailModify.searchBookId(bookId);
+                //System.out.println(bookId);
+                int checkquantity = bk.getQuantity() + quantityNum;
+                bk.setQuantity(checkquantity);
+                BookModify.updateOfBookPrice(bk);
+            }
         }
     }//GEN-LAST:event_lblDeleteReceiptRowMouseClicked
 
@@ -579,6 +635,38 @@ public class ReceiptForm extends javax.swing.JPanel {
         tareaBill.setText(txtBill);
           
     }//GEN-LAST:event_lblCheckoutMouseClicked
+
+    private void lblAddReceiptMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddReceiptMouseEntered
+        Model.HoverEffect.btnHover(btnAdd);
+    }//GEN-LAST:event_lblAddReceiptMouseEntered
+
+    private void lblAddReceiptMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddReceiptMouseExited
+        Model.HoverEffect.btnHoverExt(btnAdd);
+    }//GEN-LAST:event_lblAddReceiptMouseExited
+
+    private void lblDeleteReceiptRowMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteReceiptRowMouseEntered
+        Model.HoverEffect.btnHover(btnDelete);
+    }//GEN-LAST:event_lblDeleteReceiptRowMouseEntered
+
+    private void lblDeleteReceiptRowMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteReceiptRowMouseExited
+        Model.HoverEffect.btnHoverExt(btnDelete);
+    }//GEN-LAST:event_lblDeleteReceiptRowMouseExited
+
+    private void lblCheckoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckoutMouseEntered
+        Model.HoverEffect.btnHover(jPanel4);
+    }//GEN-LAST:event_lblCheckoutMouseEntered
+
+    private void lblCheckoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckoutMouseExited
+        Model.HoverEffect.btnHoverExt(jPanel4);
+    }//GEN-LAST:event_lblCheckoutMouseExited
+
+    private void lblPrintMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseEntered
+        Model.HoverEffect.btnHover(jPanel5);
+    }//GEN-LAST:event_lblPrintMouseEntered
+
+    private void lblPrintMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseExited
+        Model.HoverEffect.btnHoverExt(jPanel5);
+    }//GEN-LAST:event_lblPrintMouseExited
     
     // Sua Quantity trong table book
     // PROCEED TO CHECKOUT

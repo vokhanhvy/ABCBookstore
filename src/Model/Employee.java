@@ -16,12 +16,12 @@ public class Employee {
     int empId;
     String empName, userName, password, address, position;
     Date birthday, startDate;
-    double salary;
+    long salary;
     
     public Employee(){
     };
 
-    public Employee(int empId, String empName, String userName, String password, String address, String position, Date birthday, Date startDate, double salary) {
+    public Employee(int empId, String empName, String userName, String password, String address, String position, Date birthday, Date startDate, long salary) {
         this.empId = empId;
         this.empName = empName;
         this.userName = userName;
@@ -33,7 +33,7 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Employee(String empName, String userName, String password, String address, String position, Date birthday, Date startDate, double salary) {
+    public Employee(String empName, String userName, String password, String address, String position, Date birthday, Date startDate, long salary) {
         this.empName = empName;
         this.userName = userName;
         this.password = password;
@@ -108,11 +108,11 @@ public class Employee {
         this.startDate = startDate;
     }
 
-    public double getSalary() {
+    public long getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(long salary) {
         this.salary = salary;
     }
     

@@ -314,7 +314,7 @@ public class BookAdding extends javax.swing.JFrame {
         } else {
                     Integer quantity1 = Integer.parseInt(quantity);
                     long price1 = Long.parseLong(price.replace(",", ""));
-                    Books bk = new Books(bookid, name, author, genre, publisher, quantity1, price1, bookImage);
+                    Books bk = new Books(bookid, name, author, genre, publisher, 0, 0, bookImage);
                     BookModify.insertToBooks(bk);
                     lblErr.setText("Add sucess!");
                     this.dispose();

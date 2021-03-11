@@ -56,7 +56,7 @@ public class EmployeeForm extends javax.swing.JPanel {
     public void checkSalary() {
         String salary = txtSalary.getText().replace(",", "");
         if (salary.matches("\\d+")) {
-            float salary2 = Float.parseFloat(salary);
+            long salary2 = Long.parseLong(salary);
             if (salary2 < 4000000) {
                 lblValErr2.setText("Salary must greater than or equal to 4.000.000!");
             } else {
@@ -609,7 +609,7 @@ public class EmployeeForm extends javax.swing.JPanel {
             lblValErr2.setText("*Please fill in all fields!");
         } else if (lblValErr.getText().equals("") & lblValErr.getText().equals("") ) {
 
-            double salarynum = Double.parseDouble(txtSalary.getText().replace(",", ""));
+            long salarynum = Long.parseLong(txtSalary.getText().replace(",", ""));
             Employee emp = new Employee(name, user, pass, address, position, dob, startdate, salarynum);
             EmployeeModify.insert(emp);
             Validation.Notify(this, "Add successful!", "Message");
@@ -666,7 +666,7 @@ public class EmployeeForm extends javax.swing.JPanel {
                 lblValErr2.setText("*Please fill in all fields!");
             } else if (lblValErr.getText().equals("") & lblValErr.getText().equals("")) {
 
-                double salarynum = Double.parseDouble(txtSalary.getText().replace(",", ""));
+                long salarynum = Long.parseLong(txtSalary.getText().replace(",", ""));
                 Employee emp1 = new Employee(id, name, user, pass, address, position, dob, startdate, salarynum);
                 EmployeeModify.update(emp1);
                 Validation.Notify(this, "Edit successful!", "Message");
@@ -751,7 +751,7 @@ public class EmployeeForm extends javax.swing.JPanel {
                 txtPass.setText(emp.getPassword());
                 txtConpass.setText(emp.getPassword());
                 txtPosition.setText(emp.getPosition());
-                txtSalary.setText(Double.toString(emp.getSalary()));
+                txtSalary.setText(Long.toString(emp.getSalary()));
                 txtDob.setDate(emp.getBirthday());
                 txtStart.setDate(emp.getStartDate());
 

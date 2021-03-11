@@ -9,7 +9,6 @@ import Model.Employee;
 import Model.EmployeeModify;
 import java.awt.*;
 import javax.swing.*;
-import projectsem2.Main;
 
 /**
  *
